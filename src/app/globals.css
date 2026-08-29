@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  /* فونت از next/font/local (layout.tsx) تزریق می‌شود */
+  --font-sans: var(--font-vazirmatn), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  /* پالت برند: سرمه‌ای عمیق (اعتماد + فناوری) */
+  --color-brand-50: #eef5ff;
+  --color-brand-100: #d9e8fe;
+  --color-brand-200: #bcd7fe;
+  --color-brand-300: #8ebdfd;
+  --color-brand-400: #5997fa;
+  --color-brand-500: #3371f6;
+  --color-brand-600: #1d52eb;
+  --color-brand-700: #173fd8;
+  --color-brand-800: #1935af;
+  --color-brand-900: #0f1f3d;
+  --color-brand-950: #0a1428;
+
+  /* رنگ تاکیدی: کهربایی (انرژی و دعوت به اقدام) */
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+
+  /* آبی پیام‌رسان بله */
+  --color-bale-500: #00a3ed;
+  --color-bale-600: #0092d1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* جای لنگرها زیر هدر چسبان نرود */
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+::selection {
+  background-color: var(--color-accent-400);
+  color: var(--color-brand-950);
+}
+
+/* آکاردئون سوالات متداول با details/summary (بدون جاوااسکریپت) */
+details.faq[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+details.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+.faq-chevron {
+  transition: transform 0.2s ease;
+}
+
+/* لینک زیرخط‌دار برای محتوای مقالات */
+.article-link {
+  color: var(--color-brand-600);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-400);
+  text-underline-offset: 4px;
+}
+.article-link:hover {
+  color: var(--color-brand-800);
+}

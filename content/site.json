@@ -1,0 +1,45 @@
+{
+  "name": "پیچ‌گوشتی",
+  "legalName": "مرکز تخصصی تعمیرات تلویزیون پیچ‌گوشتی",
+  "tagline": "تعمیر تخصصی تلویزیون در تهران",
+  "description": "تعمیر تخصصی تلویزیون در تهران با اعزام تکنسین در کمتر از ۲ ساعت. تعمیر برد پاور، بک‌لایت، پنل و برد اصلی همه برندها با ۳ ماه گارانتی کتبی.",
+  "url": "https://pichgoshti.ir",
+  "phone": "02191001234",
+  "phoneDisplay": "09352111146",
+  "mobile": "09377893307",
+  "mobileDisplay": "09352111146",
+  "bale": "09377893307",
+  "email": "info@pichgoshti.ir",
+  "address": {
+    "street": "تهران، سعادت‌آباد، بلوار دریا، نبش خیابان گلستان، پلاک ۱۲",
+    "city": "تهران",
+    "province": "تهران",
+    "postalCode": "1385894313"
+  },
+  "geo": {
+    "lat": 35.7838,
+    "lng": 51.3732
+  },
+  "workingHours": "شنبه تا پنجشنبه ۹ صبح تا ۸ شب — جمعه‌ها با هماهنگی قبلی",
+  "social": {
+    "instagram": "https://instagram.com/pichgoshti",
+    "telegram": "https://t.me/pichgoshti",
+    "aparat": "https://www.aparat.com/pichgoshti"
+  },
+  "foundedYear": "1392",
+  "stats": {
+    "years": "۱۲+",
+    "repaired": "۸٬۵۰۰+",
+    "technicians": "۹",
+    "warrantyMonths": 3,
+    "satisfaction": "۹۷٪",
+    "arrivalTime": "کمتر از ۲ ساعت"
+  },
+  "rating": {
+    "value": "4.9",
+    "count": 214
+  },
+  "priceRange": "$$",
+  "gaId": "",
+  "googleSiteVerification": ""
+}

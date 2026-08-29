@@ -1,0 +1,28 @@
+{
+  "name": "pichgoshti",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ÙˆØ¨â€ŒØ³Ø§ÛŒØª Ù…Ø±Ú©Ø² ØªØ®ØµØµÛŒ ØªØ¹Ù…ÛŒØ±Ø§Øª ØªÙ„ÙˆÛŒØ²ÛŒÙˆÙ† Ù¾ÛŒÚ†â€ŒÚ¯ÙˆØ´ØªÛŒ â€” ØªÙ‡Ø±Ø§Ù†",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "admin": "node server.mjs",
+    "start:prod": "node scripts/ensure-content.mjs && npm run build && node server.mjs",
+    "sync-seed": "node -e \"const fs=require('fs');for(const f of ['site.json','prices.json','posts.json','faqs.json','testimonials.json'])fs.copyFileSync('content/'+f,'content-seed/'+f);console.log('✓ seed همگام شد')\""
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.7.0",
+    "vazirmatn": "^33.0.3"
+  }
+}

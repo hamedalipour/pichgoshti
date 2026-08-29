@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پنل مدیریت — پیچ‌گوشتی</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Vazirmatn, Tahoma, 'Segoe UI', sans-serif; margin: 0; background: #f1f5f9; color: #1e293b; font-size: 14px; }
+  a { color: #1d4ed8; }
+  header { background: #0a1428; color: #fff; padding: 10px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 10; }
+  header .logo { font-weight: 800; font-size: 15px; }
+  header .spacer { flex: 1; }
+  .btn { border: 0; border-radius: 10px; padding: 9px 16px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: .15s; }
+  .btn-primary { background: #f59e0b; color: #0a1428; } .btn-primary:hover { background: #fbbf24; }
+  .btn-dark { background: #1d52eb; color: #fff; } .btn-dark:hover { background: #173fd8; }
+  .btn-ghost { background: rgba(255,255,255,.12); color: #fff; text-decoration: none; }
+  .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 8px; }
+  .btn-danger { background: #fee2e2; color: #b91c1c; }
+  .btn-gray { background: #e2e8f0; color: #334155; }
+  nav.tabs { display: flex; gap: 6px; background: #fff; border-bottom: 1px solid #e2e8f0; padding: 8px 16px; position: sticky; top: 52px; z-index: 9; overflow-x: auto; }
+  nav.tabs button { border: 0; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; color: #64748b; padding: 8px 14px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
+  nav.tabs button.active { background: #eff6ff; color: #1d4ed8; }
+  main { max-width: 1100px; margin: 0 auto; padding: 18px 16px 80px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 12px; font-size: 14px; color: #0f172a; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  .grid .full { grid-column: 1 / -1; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; color: #475569; }
+  input, textarea, select { font-family: inherit; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; outline: none; background: #fff; width: 100%; }
+  input:focus, textarea:focus, select:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px #dbeafe; }
+  textarea { resize: vertical; min-height: 60px; }
+  .muted { color: #94a3b8; font-size: 12px; font-weight: 400; }
+  #toast { position: fixed; bottom: 18px; right: 50%; transform: translateX(50%); background: #0f172a; color: #fff; padding: 11px 20px; border-radius: 12px; font-size: 13px; font-weight: 700; opacity: 0; pointer-events: none; transition: .25s; z-index: 99; max-width: 90vw; }
+  #toast.show { opacity: 1; }
+  #toast.err { background: #b91c1c; }
+  #login { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  #login .box { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 34px 30px; width: 340px; text-align: center; }
+  #login h1 { font-size: 17px; margin: 0 0 6px; } #login p { font-size: 12px; color: #64748b; margin: 0 0 18px; }
+  #login input { margin-bottom: 12px; text-align: center; }
+  .posts-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 14px; align-items: start; }
+  @media (max-width: 800px) { .posts-wrap { grid-template-columns: 1fr; } }
+  .plist { display: flex; flex-direction: column; gap: 6px; }
+  .plist button { text-align: right; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; font-family: inherit; font-size: 13px; cursor: pointer; }
+  .plist button.active { border-color: #1d52eb; background: #eff6ff; color: #1d4ed8; font-weight: 700; }
+  .bcard { border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #f8fafc; }
+  .bcard .bhead { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .bcard .bhead select { width: 140px; }
+  .bcard .bhead .spacer { flex: 1; }
+  table.rows { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.rows th { text-align: right; color: #64748b; padding: 4px 6px; font-size: 11px; }
+  table.rows td { padding: 4px; }
+  table.rows input { padding: 7px 8px; }
+  #buildModal { position: fixed; inset: 0; background: rgba(15,23,42,.55); display: none; align-items: center; justify-content: center; z-index: 50; }
+  #buildModal .box { background: #fff; border-radius: 16px; padding: 22px; width: min(680px, 92vw); }
+  #buildLog { background: #0f172a; color: #a5f3fc; font-family: Consolas, monospace; font-size: 11.5px; direction: ltr; text-align: left; border-radius: 10px; padding: 12px; height: 300px; overflow: auto; white-space: pre-wrap; }
+  .spin { display: inline-block; width: 15px; height: 15px; border: 2px solid #cbd5e1; border-top-color: #1d52eb; border-radius: 50%; animation: sp 1s linear infinite; vertical-align: middle; }
+  @keyframes sp { to { transform: rotate(360deg); } }
+</style>
+</head>
+<div id="login">
+  <div class="box">
+    <h1>🔐 پنل مدیریت پیچ‌گوشتی</h1>
+    <p>برای ورود، رمز عبور ادمین را وارد کنید</p>
+    <input type="password" id="pwd" placeholder="رمز عبور" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn btn-dark" style="width:100%" onclick="doLogin()">ورود</button>
+    <p id="loginErr" style="color:#b91c1c;font-size:12px;margin:10px 0 0;display:none"></p>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <span class="logo">⚙️ پنل مدیریت پیچ‌گوشتی</span>
+    <span class="spacer"></span>
+    <button class="btn btn-primary" onclick="saveAll()">💾 ذخیره تغییرات</button>
+    <button class="btn btn-dark" onclick="doBuild()">🚀 بیلد و انتشار</button>
+    <a class="btn btn-ghost" href="/" target="_blank">🌐 مشاهده سایت</a>
+    <button class="btn btn-ghost" onclick="logout()">خروج</button>
+  </header>
+  <nav class="tabs" id="tabs"></nav>
+  <main id="main"></main>
+</div>
+
+<div id="buildModal">
+  <div class="box">
+    <h3 style="margin:0 0 12px" id="buildTitle">وضعیت بیلد <span class="spin"></span></h3>
+    <div id="buildLog">در حال شروع...</div>
+    <div style="margin-top:14px">
+      <button class="btn btn-gray" id="buildClose" style="display:none" onclick="document.getElementById('buildModal').style.display='none'">بستن</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ---------- helpers ---------- */
+const $ = (s) => document.querySelector(s);
+let PWD = sessionStorage.getItem('adminPwd') || '';
+let C = null;
+let curTab = 'site';
+let curPost = 0;
+
+function el(tag, attrs = {}, ...children) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === 'class') e.className = v;
+    else if (k === 'oninput' || k === 'onclick' || k === 'onchange') e[k] = v;
+    else e.setAttribute(k, v);
+  }
+  for (const c of children.flat()) if (c != null) e.append(c);
+  return e;
+}
+function field(label, value, oninput, opts = {}) {
+  const input = el(opts.area ? 'textarea' : 'input', { value: value ?? '', oninput, placeholder: opts.ph || '' });
+  if (opts.type) input.type = opts.type;
+  return el('label', { class: 'f' + (opts.full ? ' full' : '') }, label, input);
+}
+const getP = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+const setP = (o, p, v) => { const ks = p.split('.'); let t = o; for (let i = 0; i < ks.length - 1; i++) t = t[ks[i]]; t[ks.at(-1)] = v; };
+function toast(msg, isErr = false) {
+  const t = $('#toast'); t.textContent = msg; t.className = 'show' + (isErr ? ' err' : '');
+  clearTimeout(t._h); t._h = setTimeout(() => (t.className = ''), 3200);
+}
+async function api(path, opts = {}) {
+  const r = await fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', 'x-admin-password': PWD } });
+  const d = await r.json().catch(() => ({}));
+  if (r.status === 401) { logout(); throw new Error(d.error || 'رمز عبور اشتباه است'); }
+  if (!r.ok) throw new Error(d.error || ('خطا ' + r.status));
+  return d;
+}
+
+/* ---------- auth ---------- */
+async function doLogin() {
+  PWD = $('#pwd').value;
+  try { await api('/api/login', { method: 'POST', body: JSON.stringify({ password: PWD }) }); }
+  catch (e) { const er = $('#loginErr'); er.style.display = 'block'; er.textContent = e.message; return; }
+  sessionStorage.setItem('adminPwd', PWD);
+  $('#login').style.display = 'none'; $('#app').hidden = false;
+  await load();
+}
+function logout() { sessionStorage.removeItem('adminPwd'); location.reload(); }
+
+async function load() {
+  C = await api('/api/content');
+  renderTabs(); renderTab();
+}
+
+/* ---------- tabs ---------- */
+const TABS = [
+  ['site', '🏷️ اطلاعات سایت'],
+  ['prices', '💰 تعرفه‌ها'],
+  ['posts', '📝 مقالات وبلاگ'],
+  ['faqs', '❓ سوالات متداول'],
+  ['testimonials', '⭐ نظرات مشتریان'],
+];
+function renderTabs() {
+  const nav = $('#tabs'); nav.innerHTML = '';
+  for (const [id, label] of TABS) {
+    nav.append(el('button', { class: curTab === id ? 'active' : '', onclick: () => { curTab = id; renderTabs(); renderTab(); } }, label));
+  }
+}
+function renderTab() {
+  const m = $('#main'); m.innerHTML = '';
+  if (curTab === 'site') renderSite(m);
+  if (curTab === 'prices') renderPrices(m);
+  if (curTab === 'posts') renderPosts(m);
+  if (curTab === 'faqs') renderFaqs(m);
+  if (curTab === 'testimonials') renderTestimonials(m);
+}
+
+/* ---------- site tab ---------- */
+const SITE_SCHEMA = [
+  ['هویت برند', [['name', 'نام برند'], ['legalName', 'نام کامل شرکت'], ['tagline', 'شعار'], ['description', 'توضیحات پیش‌فرض سئو', 'area', 'full']]],
+  ['تماس', [['phone', 'تلفن ثابت (فقط رقم)'], ['phoneDisplay', 'نمایش تلفن'], ['mobile', 'موبایل'], ['mobileDisplay', 'نمایش موبایل'], ['bale', 'شماره موبایل (مثل 0937...) یا آیدی بله یا لینک کامل ble.ir'], ['email', 'ایمیل'], ['workingHours', 'ساعت کاری', 'area', 'full']]],
+  ['آدرس کارگاه', [['address.street', 'آدرس کامل', 'area', 'full'], ['address.city', 'شهر'], ['address.province', 'استان'], ['address.postalCode', 'کد پستی'], ['geo.lat', 'عرض جغرافیایی (عدد)'], ['geo.lng', 'طول جغرافیایی (عدد)']]],
+  ['وب و شبکه‌های اجتماعی', [['url', 'دامنه سایت (https://...)'], ['foundedYear', 'سال شروع فعالیت'], ['social.instagram', 'اینستاگرام'], ['social.telegram', 'تلگرام'], ['social.aparat', 'آپارات']]],
+  ['آمار و اعتماد', [['stats.years', 'سال تجربه (مثلاً ۱۲+)'], ['stats.repaired', 'تعمیرشده'], ['stats.technicians', 'تکنسین'], ['stats.warrantyMonths', 'ماه گارانتی (عدد)', 'number'], ['stats.satisfaction', 'رضایت'], ['stats.arrivalTime', 'زمان اعزام']]],
+  ['سئو و ابزارها', [['rating.value', 'امتیاز (اسکیما و بخش نظرات)'], ['rating.count', 'تعداد کل نظرات (عدد)', 'number'], ['priceRange', 'محدوده قیمت اسکیما ($$)'], ['gaId', 'Google Analytics ID (اختیاری)', '', 'full'], ['googleSiteVerification', 'کد تأیید سرچ‌کنسول (اختیاری)', '', 'full']]],
+];
+function renderSite(m) {
+  for (const [group, items] of SITE_SCHEMA) {
+    const grid = el('div', { class: 'grid' });
+    for (const [path, label, type, full] of items) {
+      const isNum = type === 'number';
+      grid.append(field(label, String(getP(C.site, path) ?? ''), (e) => setP(C.site, path, isNum ? Number(e.target.value || 0) : e.target.value), { area: type === 'area', type: isNum ? 'number' : 'text', full: full === 'full' }));
+    }
+    m.append(el('div', { class: 'card' }, el('h3', {}, group), grid));
+  }
+  m.append(el('p', { class: 'muted' }, '💡 بعد از ذخیره، دکمه «بیلد و انتشار» را بزنید تا تغییرات روی سایت اعمال شود.'));
+}
+/* ---------- prices tab ---------- */
+function renderPrices(m) {
+  C.prices.priceCategories.forEach((cat, ci) => {
+    const card = el('div', { class: 'card' });
+    const titleInput = el('input', { value: cat.title, oninput: (e) => (cat.title = e.target.value), style: 'max-width:220px' });
+    card.append(el('h3', {}, 'دسته: ', titleInput, el('span', { class: 'muted' }, 'id: ' + cat.id),
+      el('span', { style: 'flex:1' }),
+      el('button', { class: 'btn btn-danger btn-sm', onclick: () => { if (confirm('حذف دسته «' + cat.title + '»؟')) { C.prices.priceCategories.splice(ci, 1); renderTab(); } } }, 'حذف دسته'),
+    ));
+    card.append(field('توضیح دسته (اختیاری)', cat.note || '', (e) => (cat.note = e.target.value || undefined), { full: 'full' }));
+
+    const table = el('table', { class: 'rows' });
+    table.append(el('thead', {}, el('tr', {},
+      el('th', {}, 'نام خدمت'), el('th', {}, 'سایز'), el('th', {}, 'از (تومان)'), el('th', {}, 'تا (تومان)'), el('th', {}, 'واحد'), el('th', {}, 'توضیح'), el('th', {}, ''),
+    )));
+    const tbody = el('tbody');
+    cat.rows.forEach((row, ri) => {
+      const cell = (key, ph, type) => el('input', { value: row[key] ?? '', placeholder: ph, type: type || 'text', oninput: (e) => { row[key] = type === 'number' ? Number(e.target.value || 0) : e.target.value || undefined; } });
+      tbody.append(el('tr', {},
+        el('td', {}, cell('service', 'نام خدمت')),
+        el('td', {}, cell('size', 'سایز')),
+        el('td', {}, cell('from', '0', 'number')),
+        el('td', {}, cell('to', '0', 'number')),
+        el('td', {}, cell('unit', 'واحد')),
+        el('td', {}, cell('note', 'توضیح')),
+        el('td', {}, el('button', { class: 'btn btn-danger btn-sm', onclick: () => { cat.rows.splice(ri, 1); renderTab(); } }, '✕')),
+      ));
+    });
+    table.append(tbody);
+    card.append(table);
+    card.append(el('div', { style: 'margin-top:10px' },
+      el('button', { class: 'btn btn-gray btn-sm', onclick: () => { cat.rows.push({ service: 'خدمت جدید', from: 0, to: 0 }); renderTab(); } }, '+ افزودن ردیف'),
+    ));
+    m.append(card);
+  });
+  m.append(el('button', { class: 'btn btn-dark', onclick: () => {
+    const id = prompt('شناسه دسته جدید (انگلیسی، بدون فاصله):', 'new-category');
+    if (id) { C.prices.priceCategories.push({ id, title: 'دسته جدید', rows: [{ service: 'خدمت جدید', from: 0, to: 0 }] }); renderTab(); }
+  } }, '+ افزودن دسته تعرفه'));
+  const dis = el('textarea', { style: 'width:100%;min-height:70px', oninput: (e) => (C.prices.priceDisclaimer = e.target.value) });
+  dis.value = C.prices.priceDisclaimer;
+  m.append(el('div', { class: 'card', style: 'margin-top:14px' }, el('h3', {}, 'متن پایین جدول قیمت'), dis));
+}
+/* ---------- posts tab ---------- */
+const BLOCK_TYPES = { p: 'پاراگراف', h2: 'تیتر اصلی', h3: 'تیتر فرعی', list: 'لیست', callout: 'کادر نکته', table: 'جدول', link: 'لینک داخلی' };
+const newBlock = (t) => t === 'list' ? { type: t, items: [] } : t === 'table' ? { type: t, headers: ['ستون ۱', 'ستون ۲'], rows: [['', '']] } : t === 'link' ? { type: t, text: '', href: '/' } : { type: t, text: '' };
+function renderPosts(m) {
+  const wrap = el('div', { class: 'posts-wrap' });
+  const listCard = el('div', { class: 'card' }, el('h3', {}, 'مقالات (' + C.posts.length + ')'));
+  const list = el('div', { class: 'plist' });
+  C.posts.forEach((p, i) => list.append(el('button', { class: i === curPost ? 'active' : '', onclick: () => { curPost = i; renderTab(); } }, p.title || '(بدون عنوان)')));
+  listCard.append(list, el('button', { class: 'btn btn-dark btn-sm', style: 'margin-top:10px;width:100%', onclick: () => {
+    const slug = prompt('اسلاگ مقاله جدید (انگلیسی، خط تیره به‌جای فاصله):', 'new-post');
+    if (!slug) return;
+    if (C.posts.some((x) => x.slug === slug)) return toast('این اسلاگ قبلاً استفاده شده', true);
+    C.posts.unshift({ slug, title: 'مقاله جدید', excerpt: '', isoDate: new Date().toISOString().slice(0, 10), dateFa: '', keywords: [], blocks: [{ type: 'p', text: '' }], seoTitle: '', seoDescription: '', relatedServices: [] });
+    curPost = 0; renderTab();
+  } }, '+ مقاله جدید'));
+  wrap.append(listCard);
+  const p = C.posts[curPost];
+  if (!p) { m.append(wrap); return; }
+  const ed = el('div', { class: 'card' });
+  ed.append(el('h3', {}, 'ویرایش مقاله', el('span', { style: 'flex:1' }),
+    el('a', { href: '/blog/' + p.slug + '/', target: '_blank', style: 'font-size:12px' }, 'پیش‌نمایش ↗'),
+    el('button', { class: 'btn btn-danger btn-sm', onclick: () => { if (confirm('حذف مقاله «' + p.title + '»؟')) { C.posts.splice(curPost, 1); curPost = 0; renderTab(); } } }, 'حذف مقاله'),
+  ));
+  ed.append(el('div', { class: 'grid' },
+    field('عنوان مقاله', p.title, (e) => (p.title = e.target.value), { full: 'full' }),
+    field('اسلاگ (آدرس)', p.slug, (e) => (p.slug = e.target.value.trim())),
+    field('تاریخ میلادی', p.isoDate, (e) => (p.isoDate = e.target.value), { type: 'date' }),
+    field('تاریخ فارسی (نمایشی)', p.dateFa, (e) => (p.dateFa = e.target.value)),
+    field('کلمات کلیدی (با ویرگول)', (p.keywords || []).join('، '), (e) => (p.keywords = e.target.value.split(/[،,]/).map((s) => s.trim()).filter(Boolean)), { full: 'full' }),
+    field('خلاصه (نمایش در کارت‌ها)', p.excerpt, (e) => (p.excerpt = e.target.value), { area: 'area', full: 'full' }),
+    field('عنوان سئو', p.seoTitle, (e) => (p.seoTitle = e.target.value), { full: 'full' }),
+    field('توضیح سئو', p.seoDescription, (e) => (p.seoDescription = e.target.value), { area: 'area', full: 'full' }),
+    field('خدمات مرتبط (اسلاگ با ویرگول: power-board, backlight)', (p.relatedServices || []).join('، '), (e) => (p.relatedServices = e.target.value.split(/[،,]/).map((s) => s.trim()).filter(Boolean)), { full: 'full' }),
+  ));
+  ed.append(el('h3', { style: 'margin-top:18px' }, 'محتوای مقاله (بلوک‌ها)'));
+  p.blocks.forEach((b, bi) => {
+    const card = el('div', { class: 'bcard' });
+    const sel = el('select', { onchange: (e) => { p.blocks[bi] = newBlock(e.target.value); renderTab(); } });
+    for (const [v, l] of Object.entries(BLOCK_TYPES)) sel.append(el('option', { value: v }, l));
+    sel.value = b.type;
+    card.append(el('div', { class: 'bhead' }, sel, el('span', { class: 'spacer' }),
+      el('button', { class: 'btn btn-gray btn-sm', onclick: () => { if (bi > 0) { [p.blocks[bi - 1], p.blocks[bi]] = [p.blocks[bi], p.blocks[bi - 1]]; renderTab(); } } }, '↑'),
+      el('button', { class: 'btn btn-gray btn-sm', onclick: () => { if (bi < p.blocks.length - 1) { [p.blocks[bi + 1], p.blocks[bi]] = [p.blocks[bi], p.blocks[bi + 1]]; renderTab(); } } }, '↓'),
+      el('button', { class: 'btn btn-danger btn-sm', onclick: () => { p.blocks.splice(bi, 1); renderTab(); } }, '✕'),
+    ));
+    if (['p', 'h2', 'h3', 'callout'].includes(b.type)) {
+      const t = el('textarea', { style: 'width:100%' + (b.type === 'p' ? ';min-height:110px' : ''), oninput: (e) => (b.text = e.target.value) });
+      t.value = b.text; card.append(t);
+    } else if (b.type === 'link') {
+      card.append(el('div', { class: 'grid' },
+        field('متن لینک', b.text, (e) => (b.text = e.target.value)),
+        field('آدرس (مثلاً /prices/)', b.href, (e) => (b.href = e.target.value)),
+      ));
+    } else if (b.type === 'list') {
+      const t = el('textarea', { style: 'width:100%;min-height:110px', placeholder: 'هر مورد در یک خط...', oninput: (e) => (b.items = e.target.value.split('\n').map((s) => s.trim()).filter(Boolean)) });
+      t.value = (b.items || []).join('\n'); card.append(t);
+    } else if (b.type === 'table') {
+      const h = el('input', { value: (b.headers || []).join('، '), oninput: (e) => (b.headers = e.target.value.split(/[،,]/).map((s) => s.trim()).filter(Boolean)) });
+      card.append(el('label', { class: 'f', style: 'margin-bottom:8px' }, 'سرستون‌ها (با ویرگول)', h));
+      const t = el('textarea', { style: 'width:100%;min-height:130px', placeholder: 'هر سطر در یک خط؛ سلول‌ها با | جدا شوند', oninput: (e) => (b.rows = e.target.value.split('\n').map((s) => s.trim()).filter(Boolean).map((line) => line.split('|').map((c) => c.trim()))) });
+      t.value = (b.rows || []).map((r) => r.join(' | ')).join('\n'); card.append(t);
+    }
+    ed.append(card);
+  });
+  ed.append(el('button', { class: 'btn btn-gray', onclick: () => {
+    const t = prompt('نوع بلوک جدید:\n' + Object.entries(BLOCK_TYPES).map(([k, v]) => k + ' = ' + v).join('\n'), 'p');
+    if (!t || !BLOCK_TYPES[t]) return;
+    p.blocks.push(newBlock(t)); renderTab();
+  } }, '+ افزودن بلوک'));
+  wrap.append(ed);
+  m.append(wrap);
+}
+/* ---------- faqs tab ---------- */
+function renderFaqs(m) {
+  C.faqs.faqGroups.forEach((g, gi) => {
+    const card = el('div', { class: 'card' });
+    const ti = el('input', { value: g.title, oninput: (e) => (g.title = e.target.value), style: 'max-width:260px' });
+    card.append(el('h3', {}, 'گروه: ', ti,
+      el('span', { style: 'flex:1' }),
+      el('button', { class: 'btn btn-danger btn-sm', onclick: () => { if (confirm('حذف گروه «' + g.title + '»؟')) { C.faqs.faqGroups.splice(gi, 1); renderTab(); } } }, 'حذف گروه'),
+    ));
+    g.faqs.forEach((f, fi) => {
+      const q = el('input', { value: f.q, placeholder: 'سوال', oninput: (e) => (f.q = e.target.value) });
+      const a = el('textarea', { placeholder: 'پاسخ...', oninput: (e) => (f.a = e.target.value) });
+      a.value = f.a;
+      card.append(el('div', { class: 'bcard' },
+        el('div', { style: 'display:flex;gap:8px;align-items:center;margin-bottom:6px' }, q,
+          el('button', { class: 'btn btn-danger btn-sm', onclick: () => { g.faqs.splice(fi, 1); renderTab(); } }, '✕')),
+        a,
+      ));
+    });
+    card.append(el('button', { class: 'btn btn-gray btn-sm', onclick: () => { g.faqs.push({ q: '', a: '' }); renderTab(); } }, '+ سوال جدید'));
+    m.append(card);
+  });
+  m.append(el('button', { class: 'btn btn-dark', onclick: () => {
+    C.faqs.faqGroups.push({ id: 'group-' + Date.now(), title: 'گروه جدید', faqs: [] }); renderTab();
+  } }, '+ گروه جدید'));
+}
+
+/* ---------- testimonials tab ---------- */
+function renderTestimonials(m) {
+  const card = el('div', { class: 'card' }, el('h3', {}, 'نظرات مشتریان (' + C.testimonials.testimonials.length + ')',
+    el('span', { style: 'flex:1' }),
+    el('button', { class: 'btn btn-dark btn-sm', onclick: () => { C.testimonials.testimonials.unshift({ name: '', area: '', service: '', text: '', rating: 5, date: '' }); renderTab(); } }, '+ نظر جدید'),
+  ));
+  C.testimonials.testimonials.forEach((t, i) => {
+    const name = el('input', { value: t.name, placeholder: 'نام مشتری', oninput: (e) => (t.name = e.target.value) });
+    const area = el('input', { value: t.area, placeholder: 'محله', oninput: (e) => (t.area = e.target.value) });
+    const service = el('input', { value: t.service, placeholder: 'خدمت', oninput: (e) => (t.service = e.target.value) });
+    const date = el('input', { value: t.date, placeholder: '۱۴۰۵/۰۶/۰۱', oninput: (e) => (t.date = e.target.value) });
+    const rate = el('select', { onchange: (e) => (t.rating = Number(e.target.value)) });
+    for (let r = 1; r <= 5; r++) rate.append(el('option', { value: r }, '⭐'.repeat(r)));
+    rate.value = t.rating;
+    const text = el('textarea', { style: 'width:100%;min-height:80px', oninput: (e) => (t.text = e.target.value) });
+    text.value = t.text;
+    card.append(el('div', { class: 'bcard' },
+      el('div', { style: 'display:flex;gap:8px;align-items:center;margin-bottom:8px' },
+        el('span', { class: 'muted' }, '#' + (i + 1)), name, area, service, date, rate,
+        el('button', { class: 'btn btn-danger btn-sm', onclick: () => { C.testimonials.testimonials.splice(i, 1); renderTab(); } }, '✕')),
+      text,
+    ));
+  });
+  m.append(card);
+  m.append(el('p', { class: 'muted' }, '💡 امتیاز میانگین و تعداد کل نظرات (برای اسکیمای گوگل) در تب «اطلاعات سایت» بخش «سئو و ابزارها» است.'));
+}
+
+/* ---------- save & build ---------- */
+async function saveAll() {
+  try {
+    await api('/api/content', { method: 'PUT', body: JSON.stringify(C) });
+    toast('✅ ذخیره شد — حالا «بیلد و انتشار» را بزنید');
+  } catch (e) { toast(e.message, true); }
+}
+
+async function doBuild() {
+  try { await saveAll(); } catch { return; }
+  const modal = $('#buildModal'), log = $('#buildLog'), title = $('#buildTitle'), closeBtn = $('#buildClose');
+  modal.style.display = 'flex'; closeBtn.style.display = 'none';
+  title.innerHTML = 'وضعیت بیلد <span class="spin"></span>';
+  log.textContent = 'در حال شروع...';
+  try {
+    await api('/api/build', { method: 'POST', body: JSON.stringify({}) });
+    const timer = setInterval(async () => {
+      try {
+        const s = await api('/api/build-status');
+        log.textContent = s.log.join('\n');
+        log.scrollTop = log.scrollHeight;
+        if (!s.running) {
+          clearInterval(timer);
+          if (s.exitCode === 0) {
+            title.innerHTML = '✅ بیلد موفق (' + Math.round(s.durationMs / 1000) + ' ثانیه)';
+            toast('✅ سایت منتشر شد — در تب «مشاهده سایت» ببینید');
+          } else { title.innerHTML = '❌ بیلد ناموفق — لاگ را بررسی کنید'; toast('بیلد ناموفق بود', true); }
+          closeBtn.style.display = 'inline-block';
+        }
+      } catch { clearInterval(timer); }
+    }, 1500);
+  } catch (e) { modal.style.display = 'none'; toast(e.message, true); }
+}
+
+/* ---------- boot ---------- */
+if (PWD) {
+  api('/api/content').then(() => { $('#login').style.display = 'none'; $('#app').hidden = false; load(); }).catch(() => {});
+}
+</script>
