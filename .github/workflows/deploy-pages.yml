@@ -30,9 +30,7 @@ jobs:
 
       - name: Build static site
         run: npm run build
-        env:
-          # سایت زیر https://hamedalipour.github.io/pichgoshti/ سرو می‌شود
-          NEXT_PUBLIC_BASE_PATH: /pichgoshti
+        # دامنه اختصاصی pich-goshti.ir → مسیرها از ریشه سرو می‌شوند (بدون basePath)
 
       - uses: actions/upload-pages-artifact@v3
         with:

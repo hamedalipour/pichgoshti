@@ -12,7 +12,7 @@ const require = createRequire(import.meta.url);
 
 // کامپایل داده‌های TS به CJS برای خواندن در Node
 execSync(
-  'npx tsc src/data/site.ts src/data/prices.ts src/data/faqs.ts src/data/testimonials.ts src/data/posts/index.ts --outDir .tmp-seed --module commonjs --target es2020 --skipLibCheck',
+  'npx tsc src/data/site.ts src/data/prices.ts src/data/faqs.ts src/data/testimonials.ts src/data/posts/index.ts --outDir .tmp-seed --module commonjs --target es2020 --skipLibCheck --resolveJsonModule',
   { cwd: root, stdio: 'inherit' },
 );
 
