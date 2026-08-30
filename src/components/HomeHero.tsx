@@ -19,7 +19,7 @@ export function HomeHero() {
             <span className="mt-2 block text-brand-600">همه برندها، همه مدل‌ها — با گارانتی کتبی</span>
           </h1>
           <p className="max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
-            تعمیر برد پاور، برد اصلی، تعویض بک‌لایت و پنل تلویزیون‌های LCD، LED، OLED و QLED.
+            تعمیر برد پاور، برد اصلی، تعویض بک‌لایت و پنل تلویزیون‌های LCD، LED، OLED و QLED.{' '}
             {siteConfig.stats.years} سال تجربه، {siteConfig.stats.repaired} تلویزیون تعمیر شده و
             رضایت {siteConfig.stats.satisfaction} مشتریان.
           </p>
