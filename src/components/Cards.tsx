@@ -23,35 +23,41 @@ const serviceStyles: Record<string, { tile: string; icon: string; bar: string; r
 
 const fallbackStyle = { tile: 'bg-brand-100', icon: 'text-brand-600', bar: 'bg-brand-500', ring: 'hover:ring-brand-300' };
 
-/** کارت خدمت */
-export function ServiceCard({ service }: { service: Service }) {
+/** کارت خدمت — حالت featured برای کارت بزرگ‌تر (شکستن ریتم کارت‌های هم‌اندازه) */
+export function ServiceCard({ service, featured = false }: { service: Service; featured?: boolean }) {
   const st = serviceStyles[service.slug] ?? fallbackStyle;
   return (
     <Link
       href={`/services/${service.slug}/`}
-      className={`group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-transparent hover:shadow-xl hover:shadow-brand-950/10 hover:ring-2 ${st.ring}`}
+      className={`group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition duration-300 ease-out-quart hover:-translate-y-1.5 hover:border-transparent hover:shadow-xl hover:shadow-brand-950/10 hover:ring-2 ${st.ring} ${
+        featured ? 'sm:flex-row sm:items-center sm:gap-8 sm:p-8' : ''
+      }`}
     >
       <span
         aria-hidden="true"
-        className={`absolute inset-x-0 top-0 h-1 origin-right scale-x-0 ${st.bar} transition-transform duration-300 group-hover:scale-x-100`}
+        className={`absolute inset-x-0 top-0 h-1 origin-right scale-x-0 ${st.bar} transition-transform duration-300 ease-out-quart group-hover:scale-x-100`}
       />
       <span
         aria-hidden="true"
-        className={`inline-flex size-14 items-center justify-center rounded-2xl ${st.tile} ${st.icon} shadow-inner transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
+        className={`inline-flex shrink-0 items-center justify-center rounded-2xl ${st.tile} ${st.icon} shadow-inner transition-transform duration-300 ease-out-quart group-hover:-rotate-3 group-hover:scale-110 ${
+          featured ? 'size-16 sm:size-20' : 'size-14'
+        }`}
       >
-        <ServiceIcon slug={service.slug} className="size-7" />
+        <ServiceIcon slug={service.slug} className={featured ? 'size-9 sm:size-11' : 'size-7'} />
       </span>
-      <h3 className="text-base font-extrabold text-brand-950 transition group-hover:text-brand-700">
-        {service.navLabel}
-      </h3>
-      <p className="text-sm leading-7 text-slate-600">{service.excerpt}</p>
-      <span className="mt-auto inline-flex items-center gap-2 pt-1 text-sm font-bold text-slate-400 transition group-hover:text-brand-700">
-        جزئیات و هزینه
-        <span
-          aria-hidden="true"
-          className={`grid size-6 place-items-center rounded-full ${st.tile} ${st.icon} transition-transform duration-300 group-hover:-translate-x-1`}
-        >
-          ←
+      <span className="flex flex-col gap-3">
+        <h3 className={`font-extrabold text-brand-950 transition group-hover:text-brand-700 ${featured ? 'text-xl' : 'text-base'}`}>
+          {service.navLabel}
+        </h3>
+        <p className={`leading-7 text-slate-600 ${featured ? 'max-w-md text-[15px]' : 'text-sm'}`}>{service.excerpt}</p>
+        <span className="mt-auto inline-flex items-center gap-2 pt-1 text-sm font-bold text-slate-400 transition group-hover:text-brand-700">
+          جزئیات و هزینه
+          <span
+            aria-hidden="true"
+            className={`grid size-6 place-items-center rounded-full ${st.tile} ${st.icon} transition-transform duration-300 ease-out-quart group-hover:-translate-x-1`}
+          >
+            ←
+          </span>
         </span>
       </span>
     </Link>
@@ -63,13 +69,13 @@ export function BrandCard({ brand }: { brand: Brand }) {
   return (
     <Link
       href={`/brands/${brand.slug}/`}
-      className="group flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 transition hover:border-brand-300 hover:shadow-sm"
+      className="group flex h-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md hover:shadow-brand-950/5"
     >
       <span className="flex flex-col">
         <span className="text-[15px] font-extrabold text-brand-950">{brand.name}</span>
         <span dir="ltr" className="text-xs text-slate-400">{brand.nameEn}</span>
       </span>
-      <span aria-hidden="true" className="text-brand-300 transition group-hover:translate-x-[-2px] group-hover:text-brand-600">
+      <span aria-hidden="true" className="text-brand-300 transition group-hover:text-brand-600">
         ←
       </span>
     </Link>
@@ -81,11 +87,11 @@ export function AreaCard({ area }: { area: Area }) {
   return (
     <Link
       href={`/areas/${area.slug}/`}
-      className="group flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 transition hover:border-brand-300 hover:shadow-sm"
+      className="group flex h-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md hover:shadow-brand-950/5"
     >
       <span className="flex flex-col">
         <span className="text-[15px] font-extrabold text-brand-950">تعمیر تلویزیون در {area.name}</span>
-        <span className="text-xs text-slate-400">{area.district} — اعزام {area.arrival}</span>
+        <span className="text-xs text-slate-400">{area.district}؛ اعزام {area.arrival}</span>
       </span>
       <span aria-hidden="true" className="text-brand-300 transition group-hover:text-brand-600">
         ←
@@ -99,7 +105,7 @@ export function BlogCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug}/`}
-      className="group flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-brand-300 hover:shadow-md"
+      className="group flex h-full flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 ease-out-quart hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg hover:shadow-brand-950/5"
     >
       <div className="flex items-center justify-between text-xs text-slate-400">
         <span className="rounded-full bg-accent-500/10 px-3 py-1 font-bold text-accent-700">مقاله</span>

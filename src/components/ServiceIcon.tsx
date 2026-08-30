@@ -147,6 +147,21 @@ const featureIcons: Record<string, ReactNode> = {
       <path d="M12 13v8" />
     </>
   ),
+  /* تماس تلفنی */
+  phone: (
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.62 3h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+  ),
+  /* پیام‌رسان بله */
+  chat: (
+    <>
+      <path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 21l1.95-5.6A8.5 8.5 0 1 1 21 11.5z" />
+      <circle cx="8.5" cy="11.5" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="12.5" cy="11.5" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="16.5" cy="11.5" r="0.9" fill="currentColor" stroke="none" />
+    </>
+  ),
+  /* تأیید */
+  check: <path d="M4.5 12.5l4.7 4.7L19.5 6.9" />,
 };
 
 export function FeatureIcon({ name, className }: { name: string; className?: string }) {

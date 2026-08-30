@@ -6,6 +6,7 @@ import { SectionHeading } from './SectionHeading';
 import { AreaCard, BlogCard } from './Cards';
 import { Testimonials } from './Testimonials';
 import { FaqAccordion } from './FaqAccordion';
+import { Reveal } from './Reveal';
 
 /** ادامه بخش‌های صفحه اصلی: مناطق، نظرات، سوالات و وبلاگ */
 export function HomeMore() {
@@ -18,9 +19,11 @@ export function HomeMore() {
           title="تعمیر تلویزیون در همه مناطق تهران"
           description={`${areas.length.toLocaleString('fa-IR')} محله و منطقه تحت پوشش با زمان اعزام مشخص. محله خود را انتخاب کنید:`}
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {areaGroups[0].areas.slice(0, 3).map((a) => (
-            <AreaCard key={a.slug} area={a} />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {areaGroups[0].areas.slice(0, 3).map((a, i) => (
+            <Reveal key={a.slug} delay={i * 60} className="h-full">
+              <AreaCard area={a} />
+            </Reveal>
           ))}
         </div>
         <div className="mt-6 text-center">
@@ -52,9 +55,11 @@ export function HomeMore() {
             title="قبل از تعمیر، این‌ها را بخوانید"
             description="راهنماهای عملی برای شناخت علائم خرابی و تصمیم درست درباره تعمیر تلویزیون."
           />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.slice(0, 3).map((p) => (
-              <BlogCard key={p.slug} post={p} />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.slice(0, 3).map((p, i) => (
+              <Reveal key={p.slug} delay={i * 60} className="h-full">
+                <BlogCard post={p} />
+              </Reveal>
             ))}
           </div>
         </div>

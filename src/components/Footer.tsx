@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="border-t border-brand-900/20 bg-brand-950 text-slate-300">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
-          <Link href="/" className="flex items-center gap-2.5" aria-label={`${siteConfig.name} — صفحه اصلی`}>
+          <Link href="/" className="flex items-center gap-2.5" aria-label={`${siteConfig.name}؛ صفحه اصلی`}>
             <Logo className="size-9" />
             <span className="text-lg font-extrabold text-white">{siteConfig.name}</span>
           </Link>
@@ -104,7 +104,7 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-slate-500 sm:flex-row">
-          <p>© {year} — تمامی حقوق برای {siteConfig.legalName} محفوظ است.</p>
+          <p>© {year} تمامی حقوق برای {siteConfig.legalName} محفوظ است.</p>
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <li><Link href="/about/" className="transition hover:text-slate-300">درباره ما</Link></li>
             <li><Link href="/faq/" className="transition hover:text-slate-300">سوالات متداول</Link></li>

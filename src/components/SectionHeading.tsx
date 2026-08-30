@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react';
 
 /**
- * عنوان بخش‌ها با زیرنویس — یکنواخت در کل سایت
+ * عنوان بخش‌ها با ابرتیول خطی — یکنواخت در کل سایت
+ * (بدون نقطه تزئینی طبق قاعده ۹.F اسکیل taste-skill)
  */
 export function SectionHeading({
   eyebrow,
   title,
   description,
-  align = 'center',
+  align = 'start',
   as: Tag = 'h2',
 }: {
   eyebrow?: string;
@@ -20,12 +21,12 @@ export function SectionHeading({
   return (
     <div className={`flex flex-col gap-3 ${alignCls}`}>
       {eyebrow && (
-        <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-1.5 text-sm font-bold text-brand-700">
-          <span aria-hidden="true" className="size-1.5 rounded-full bg-accent-500" />
+        <span className="inline-flex items-center gap-2.5 text-sm font-extrabold text-accent-600">
+          <span aria-hidden="true" className="h-0.5 w-7 rounded-full bg-accent-500" />
           {eyebrow}
         </span>
       )}
-      <Tag className="text-2xl font-extrabold leading-snug text-brand-950 sm:text-3xl lg:text-4xl">
+      <Tag className="max-w-2xl text-3xl font-extrabold leading-[1.35] text-brand-950 sm:text-4xl sm:leading-[1.3]">
         {title}
       </Tag>
       {description && (

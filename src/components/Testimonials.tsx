@@ -18,7 +18,7 @@ export function Testimonials({ compact = false }: { compact?: boolean }) {
         {list.map((t) => (
           <li
             key={t.name}
-            className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+            className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 ease-out-quart hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-950/5"
           >
             <div className="flex items-center gap-1" aria-label={`امتیاز ${t.rating} از ۵`}>
               {Array.from({ length: 5 }).map((_, i) => (
@@ -31,7 +31,7 @@ export function Testimonials({ compact = false }: { compact?: boolean }) {
             <footer className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs text-slate-500">
               <span className="font-extrabold text-brand-950">{t.name}</span>
               <span>
-                {t.area} — {t.service}
+                {t.area}؛ {t.service}
               </span>
             </footer>
           </li>
