@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 4000;
 const CONTENT_FILES = ['site.json', 'prices.json', 'posts.json', 'faqs.json', 'testimonials.json'];
 
 let buildState = { running: false, startedAt: null, finishedAt: null, exitCode: null, durationMs: null, log: [] };
+let publishState = { running: false, startedAt: null, finishedAt: null, exitCode: null, log: [] };
 
 const json = (res, code, data) => {
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -111,6 +112,59 @@ function startBuild() {
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.xml': 'application/xml', '.txt': 'text/plain', '.json': 'application/json', '.woff2': 'font/woff2', '.webmanifest': 'application/manifest+json' };
 
+// انتشار آنلاین: git add → commit → push  (گیت‌هاب اکشنز خودش بیلد می‌کند)
+function startPublish() {
+  publishState = { running: true, startedAt: new Date().toISOString(), finishedAt: null, exitCode: null, log: ['⏳ آماده‌سازی انتشار...'] };
+  const push = (line) => {
+    publishState.log.push(line.trim());
+    if (publishState.log.length > 200) publishState.log = publishState.log.slice(-200);
+  };
+  const steps = [
+    { cmd: 'git', args: ['add', '-A'] },
+    { cmd: 'git', args: ['commit', '-m', 'content update ' + new Date().toISOString()] },
+    { cmd: 'git', args: ['push'] },
+  ];
+  let i = 0;
+  const next = () => {
+    if (i >= steps.length) {
+      publishState.running = false;
+      publishState.exitCode = 0;
+      publishState.finishedAt = new Date().toISOString();
+      publishState.log.push('✅ به گیت‌هاب ارسال شد — حدود ۱ تا ۲ دقیقه دیگر روی https://pich-goshti.ir اعمال می‌شود.');
+      return;
+    }
+    const s = steps[i++];
+    push('$ git ' + s.args.join(' '));
+    const child = spawn(s.cmd, s.args, { cwd: root, windowsHide: true });
+    let errBuf = '';
+    child.stdout.on('data', push);
+    child.stderr.on('data', (d) => { errBuf += d.toString(); push(d); });
+    child.on('error', (e) => {
+      publishState.running = false;
+      publishState.exitCode = -1;
+      publishState.finishedAt = new Date().toISOString();
+      publishState.log.push('❌ اجرای git ممکن نشد: ' + e.message);
+    });
+    child.on('close', (code) => {
+      // «چیزی برای کامیت نبود» خطا نیست — ادامه بده
+      if (s.args[0] === 'commit' && code !== 0 && /nothing to commit|no changes added/i.test(errBuf)) {
+        push('ℹ️ تغییری جدید نبود — ادامه...');
+        next();
+        return;
+      }
+      if (code !== 0) {
+        publishState.running = false;
+        publishState.exitCode = code;
+        publishState.finishedAt = new Date().toISOString();
+        publishState.log.push('❌ انتشار ناموفق شد — اتصال اینترنت/گیت‌هاب را چک کنید و دوباره تلاش کنید.');
+        return;
+      }
+      next();
+    });
+  };
+  next();
+}
+
 function serveStatic(res, url) {
   let file = decodeURIComponent(url);
   if (file.endsWith('/')) file += 'index.html';
@@ -164,6 +218,17 @@ const server = http.createServer(async (req, res) => {
 
     if (url === '/api/build-status' && req.method === 'GET') {
       return json(res, 200, { ...buildState, log: buildState.log.slice(-25) });
+    }
+
+    if (url === '/api/publish' && req.method === 'POST') {
+      if (publishState.running) return json(res, 409, { error: 'یک انتشار در حال اجراست' });
+      if (buildState.running) return json(res, 409, { error: 'اول صبر کنید بیلد محلی تمام شود' });
+      startPublish();
+      return json(res, 200, { ok: true });
+    }
+
+    if (url === '/api/publish-status' && req.method === 'GET') {
+      return json(res, 200, { ...publishState, log: publishState.log.slice(-25) });
     }
 
     return json(res, 404, { error: 'not found' });

@@ -73,7 +73,8 @@
     <span class="logo">⚙️ پنل مدیریت پیچ‌گوشتی</span>
     <span class="spacer"></span>
     <button class="btn btn-primary" onclick="saveAll()">💾 ذخیره تغییرات</button>
-    <button class="btn btn-dark" onclick="doBuild()">🚀 بیلد و انتشار</button>
+    <button class="btn btn-dark" onclick="doBuild()">🚀 بیلد و پیش‌نمایش</button>
+    <button class="btn btn-dark" onclick="doPublish()">🌍 انتشار در سایت زنده</button>
     <a class="btn btn-ghost" href="/" target="_blank">🌐 مشاهده سایت</a>
     <button class="btn btn-ghost" onclick="logout()">خروج</button>
   </header>
@@ -386,6 +387,33 @@ async function doBuild() {
             title.innerHTML = '✅ بیلد موفق (' + Math.round(s.durationMs / 1000) + ' ثانیه)';
             toast('✅ سایت منتشر شد — در تب «مشاهده سایت» ببینید');
           } else { title.innerHTML = '❌ بیلد ناموفق — لاگ را بررسی کنید'; toast('بیلد ناموفق بود', true); }
+          closeBtn.style.display = 'inline-block';
+        }
+      } catch { clearInterval(timer); }
+    }, 1500);
+  } catch (e) { modal.style.display = 'none'; toast(e.message, true); }
+}
+
+async function doPublish() {
+  if (!confirm('تغییرات ذخیره و به سایت زنده (pich-goshti.ir) منتشر شود؟')) return;
+  try { await saveAll(); } catch { return; }
+  const modal = $('#buildModal'), log = $('#buildLog'), title = $('#buildTitle'), closeBtn = $('#buildClose');
+  modal.style.display = 'flex'; closeBtn.style.display = 'none';
+  title.innerHTML = '🌍 انتشار آنلاین <span class="spin"></span>';
+  log.textContent = 'در حال ارسال به گیت‌هاب...';
+  try {
+    await api('/api/publish', { method: 'POST', body: JSON.stringify({}) });
+    const timer = setInterval(async () => {
+      try {
+        const s = await api('/api/publish-status');
+        log.textContent = s.log.join('\n');
+        log.scrollTop = log.scrollHeight;
+        if (!s.running) {
+          clearInterval(timer);
+          if (s.exitCode === 0) {
+            title.innerHTML = '✅ به گیت‌هاب ارسال شد';
+            toast('✅ حدود ۱ تا ۲ دقیقه دیگر روی pich-goshti.ir اعمال می‌شود');
+          } else { title.innerHTML = '❌ انتشار ناموفق — اتصال اینترنت/گیت‌هاب را چک کنید و دوباره تلاش کنید'; toast('انتشار ناموفق بود', true); }
           closeBtn.style.display = 'inline-block';
         }
       } catch { clearInterval(timer); }
