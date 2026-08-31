@@ -78,6 +78,14 @@ export function getLocalBusinessSchema() {
     },
     foundingDate: siteConfig.foundedYear,
     slogan: siteConfig.tagline,
+    knowsAbout: [
+      'تعمیر تلویزیون دوو',
+      'تعمیر تلویزیون اسنوا',
+      'تعمیر برد پاور تلویزیون',
+      'تعویض بک‌لایت تلویزیون',
+      'فلش اندروید تلویزیون',
+      'تعمیر پنل تلویزیون',
+    ],
   };
 }
 

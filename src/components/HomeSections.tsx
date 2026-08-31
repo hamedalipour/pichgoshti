@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { services } from '@/data/services';
-import { brands } from '@/data/brands';
+import { brands, featuredBrandSlugs } from '@/data/brands';
 import { siteConfig } from '@/data/site';
 import { SectionHeading } from './SectionHeading';
 import { ServiceCard, BrandCard } from './Cards';
@@ -48,20 +48,31 @@ export function HomeSections() {
         </div>
       </section>
 
-      {/* برندها */}
+      {/* برندها — تمرکز روی دوو و اسنوا */}
       <section className="border-y border-slate-100 bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4">
           <SectionHeading
-            eyebrow="برندها"
-            title="تعمیر تلویزیون همه برندها"
-            description="تکنسین‌های ما مدارک سرویس و تجربه مدل‌های رایج بازار ایران را دارند."
+            eyebrow="تخصص اصلی ما"
+            title="تعمیر تلویزیون دوو و اسنوا"
+            description="بیشترین سهم تعمیرات کارگاه ما مربوط به دوو و اسنواست؛ به همین دلیل تجربه ما روی این دو برند عمیق‌تر است و قطعاتشان همیشه آماده داریم. سایر برندها هم پوشش داده می‌شوند."
           />
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {brands.map((b, i) => (
-              <Reveal key={b.slug} delay={(i % 5) * 50} className="h-full">
-                <BrandCard brand={b} />
-              </Reveal>
-            ))}
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {brands
+              .filter((b) => featuredBrandSlugs.includes(b.slug))
+              .map((b, i) => (
+                <Reveal key={b.slug} delay={i * 60} className="h-full">
+                  <BrandCard brand={b} featured />
+                </Reveal>
+              ))}
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {brands
+              .filter((b) => !featuredBrandSlugs.includes(b.slug))
+              .map((b, i) => (
+                <Reveal key={b.slug} delay={(i % 4) * 50} className="h-full">
+                  <BrandCard brand={b} />
+                </Reveal>
+              ))}
           </div>
         </div>
       </section>

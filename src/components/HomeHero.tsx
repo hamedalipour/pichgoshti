@@ -10,7 +10,7 @@ const heroStats = [
   { label: 'رضایت مشتریان', value: siteConfig.stats.satisfaction },
 ];
 
-const heroChecks = ['عیب‌یابی قبل از تعمیر', 'فاکتور رسمی', 'تعمیر در محل'];
+const heroChecks = ['عیب‌یابی قبل از تعمیر', 'فاکتور رسمی', 'قطعات دوو و اسنوا موجود'];
 
 /** هیرو + نوار آمار صفحه اصلی — چیدمان نامتقارن با ورود پلکانی */
 export function HomeHero() {
@@ -31,14 +31,14 @@ export function HomeHero() {
           </span>
 
           <h1 className="hero-rise text-4xl font-extrabold leading-[1.3] text-brand-950 [animation-delay:90ms] sm:text-5xl sm:leading-[1.25]">
-            تعمیر تخصصی تلویزیون در تهران
+            تعمیر تخصصی تلویزیون دوو و اسنوا در تهران
             <span className="mt-3 block text-xl font-bold text-brand-600 sm:text-2xl">
-              همه برندها، همه مدل‌ها؛ با گارانتی کتبی
+              تخصص اصلی ما دوو و اسنواست؛ به‌همراه همه برندهای دیگر با گارانتی کتبی
             </span>
           </h1>
 
           <p className="hero-rise max-w-xl text-base leading-8 text-slate-600 [animation-delay:180ms] sm:text-lg">
-            تعمیر برد پاور، برد اصلی، تعویض بک‌لایت و پنل تلویزیون‌های LCD، LED، OLED و QLED.
+            تعمیر برد پاور، فلش اندروید، تعویض بک‌لایت و پنل تلویزیون‌های دوو و اسنوا و سایر برندهای LCD، LED و QLED.
           </p>
           <div className="hero-rise flex w-full flex-col gap-3 [animation-delay:270ms] sm:w-auto sm:flex-row">
             <a
@@ -80,7 +80,7 @@ export function HomeHero() {
         <div className="hero-rise relative [animation-delay:200ms] lg:col-span-5">
           <Image
             src={heroBanner}
-            alt="تعمیر تخصصی تلویزیون توسط تکنسین‌های پیچ‌گوشتی — همراه با ابزار حرفه‌ای"
+            alt="تعمیر تخصصی تلویزیون دوو و اسنوا توسط تکنسین‌های پیچ‌گوشتی — همراه با ابزار حرفه‌ای"
             priority
             sizes="(min-width: 1024px) 42rem, 100vw"
             className="mx-auto h-auto w-full max-w-lg rounded-[2rem] shadow-2xl shadow-brand-950/10 ring-1 ring-brand-100 lg:max-w-none"

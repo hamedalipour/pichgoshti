@@ -29,6 +29,8 @@ export async function generateMetadata({ params }: Params) {
 
 /** خدمات پیشنهادی برای هر برند */
 const brandServices: Record<string, string[]> = {
+  daewoo: ['power-board', 'android-tv', 'backlight', 'mainboard'],
+  snowa: ['android-tv', 'power-board', 'backlight', 'panel'],
   default: ['power-board', 'mainboard', 'backlight', 'panel'],
 };
 

@@ -64,8 +64,34 @@ export function ServiceCard({ service, featured = false }: { service: Service; f
   );
 }
 
-/** کارت برند */
-export function BrandCard({ brand }: { brand: Brand }) {
+/** کارت برند — حالت featured برای برندهای تخصصی سایت (دوو و اسنوا) */
+export function BrandCard({ brand, featured = false }: { brand: Brand; featured?: boolean }) {
+  if (featured) {
+    return (
+      <Link
+        href={`/brands/${brand.slug}/`}
+        className="group flex h-full flex-col gap-4 rounded-3xl border-2 border-accent-500/50 bg-white p-7 shadow-sm transition duration-300 ease-out-quart hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand-950/10"
+      >
+        <span className="inline-flex w-fit items-center rounded-full bg-accent-500/10 px-3 py-1 text-xs font-extrabold text-accent-700">
+          تخصص اصلی ما
+        </span>
+        <span className="flex flex-wrap items-baseline gap-x-3">
+          <span className="text-2xl font-extrabold text-brand-950 transition group-hover:text-brand-700">{brand.name}</span>
+          <span dir="ltr" className="text-sm font-bold text-slate-400">{brand.nameEn}</span>
+        </span>
+        <span className="text-sm leading-7 text-slate-600">{brand.excerpt}</span>
+        <span className="mt-auto inline-flex items-center gap-2 pt-1 text-sm font-bold text-brand-600">
+          صفحه تعمیر {brand.name}
+          <span
+            aria-hidden="true"
+            className="grid size-6 place-items-center rounded-full bg-accent-500/10 text-accent-700 transition-transform duration-300 ease-out-quart group-hover:-translate-x-1"
+          >
+            ←
+          </span>
+        </span>
+      </Link>
+    );
+  }
   return (
     <Link
       href={`/brands/${brand.slug}/`}

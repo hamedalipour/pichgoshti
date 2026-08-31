@@ -11,6 +11,7 @@ dev-server.log
 admin-server.log
 build.log
 serve-out.log
+serve-err.log
 .tmp-seed/
 
 # misc

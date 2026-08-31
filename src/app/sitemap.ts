@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/data/site';
 import { services } from '@/data/services';
-import { brands } from '@/data/brands';
+import { brands, featuredBrandSlugs } from '@/data/brands';
 import { areas } from '@/data/areas';
 import { posts } from '@/data/posts';
 
@@ -33,7 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticEntries(),
     ...services.map((s) => entry(`/services/${s.slug}/`, 0.9)),
-    ...brands.map((b) => entry(`/brands/${b.slug}/`, 0.7)),
+    // برندهای تخصصی سایت (دوو و اسنوا) اولویت بالاتری در نقشه سایت دارند
+    ...brands.map((b) => entry(`/brands/${b.slug}/`, featuredBrandSlugs.includes(b.slug) ? 0.9 : 0.7)),
     ...areas.map((a) => entry(`/areas/${a.slug}/`, 0.8)),
     ...posts.map((p) => entry(`/blog/${p.slug}/`, 0.6, new Date(p.isoDate))),
   ];

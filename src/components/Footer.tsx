@@ -18,8 +18,8 @@ export function Footer() {
             <span className="text-lg font-extrabold text-white">{siteConfig.name}</span>
           </Link>
           <p className="text-sm leading-7 text-slate-400">
-            {siteConfig.legalName}؛ تعمیر تخصصی تلویزیون‌های LCD، LED، OLED و QLED همه برندها در تهران،
-            با گارانتی کتبی {siteConfig.stats.warrantyMonths} ماهه و قطعات اورجینال.
+            {siteConfig.legalName}؛ تعمیر تخصصی تلویزیون‌های دوو و اسنوا به‌همراه LCD، LED و QLED سایر برندها
+            در تهران، با گارانتی کتبی {siteConfig.stats.warrantyMonths} ماهه و قطعات اورجینال.
           </p>
           <SocialLinks />
         </div>
