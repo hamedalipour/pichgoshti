@@ -32,6 +32,10 @@ jobs:
         run: npm run build
         # دامنه اختصاصی pich-goshti.ir → مسیرها از ریشه سرو می‌شوند (بدون basePath)
 
+      - name: Fix metadata image extensions for static hosting
+        # تصاویر OG/apple-icon بدون پسوند → .png + بازنویسی ارجاع‌ها (content-type درست)
+        run: node scripts/fix-og-ext.mjs
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
