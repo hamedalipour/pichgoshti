@@ -15,7 +15,7 @@ export function getLocalBusinessSchema() {
     url: siteConfig.url,
     telephone: `+98${siteConfig.phone.replace(/^0/, '')}`,
     email: siteConfig.email,
-    image: absoluteUrl('/opengraph-image.png'),
+    image: absoluteUrl('/og-default.png'),
     logo: absoluteUrl('/icon.svg'),
     priceRange: siteConfig.priceRange,
     currenciesAccepted: 'IRR',
@@ -183,6 +183,6 @@ export function getBlogPostSchema(opts: {
     author: { '@id': `${siteConfig.url}/#organization` },
     publisher: { '@id': `${siteConfig.url}/#organization` },
     mainEntityOfPage: absoluteUrl(opts.path),
-    image: absoluteUrl('/opengraph-image.png'),
+    image: absoluteUrl('/og-default.png'),
   };
 }

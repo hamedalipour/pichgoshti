@@ -95,7 +95,7 @@ export default async function AreaPage({ params }: Params) {
             <div>
               <SectionHeading align="start" title="سوالات رایج مشتریان این منطقه" />
               <div className="mt-6">
-                <FaqAccordion faqs={areaFaqs} />
+                <FaqAccordion faqs={areaFaqs} withSchema />
               </div>
             </div>
 

@@ -7,7 +7,9 @@ export type PostBlock =
   | { type: 'list'; items: string[] }
   | { type: 'callout'; text: string }
   | { type: 'table'; headers: string[]; rows: string[][] }
-  | { type: 'link'; text: string; href: string };
+  | { type: 'link'; text: string; href: string }
+  /** تصویر داخل مقاله — مسیر نسبی از ریشه سایت مثل /images/blog/file.jpg */
+  | { type: 'image'; src: string; alt: string; caption?: string };
 
 export type Post = {
   slug: string;

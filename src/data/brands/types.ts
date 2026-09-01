@@ -10,4 +10,6 @@ export type Brand = {
   commonIssues: string[];
   seoTitle: string;
   seoDescription: string;
+  /** سوالات متداول اختصاصی برند — اگر خالی باشد سوالات جنریک ساخته می‌شود */
+  faqs?: { q: string; a: string }[];
 };

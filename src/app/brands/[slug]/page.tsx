@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { brands } from '@/data/brands';
+import { brands, getBrandFaqs } from '@/data/brands';
 import { services } from '@/data/services';
 import { areas } from '@/data/areas';
 import { buildMetadata } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { SectionHeading } from '@/components/SectionHeading';
 import { ServiceCard } from '@/components/Cards';
+import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -87,6 +88,13 @@ export default async function BrandPage({ params }: Params) {
               <Link href="/prices/" className="mt-3 inline-flex text-sm font-bold text-brand-700 underline decoration-accent-400 underline-offset-4">
                 جدول کامل تعرفه‌ها ←
               </Link>
+            </div>
+
+            <div>
+              <SectionHeading align="start" title={`سوالات متداول تعمیر تلویزیون ${brand.name}`} />
+              <div className="mt-6">
+                <FaqAccordion faqs={getBrandFaqs(brand)} withSchema title={`سوالات متداول تعمیر تلویزیون ${brand.name}`} />
+              </div>
             </div>
           </article>
 

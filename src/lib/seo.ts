@@ -49,7 +49,7 @@ export function buildMetadata({
       locale: 'fa_IR',
       type: ogType,
       publishedTime,
-      images: [{ url: absoluteUrl('/opengraph-image.png'), width: 1200, height: 630, alt: siteConfig.legalName }],
+      // og:image از فایل‌های opengraph-image.tsx (تداخل با تصویر داینامیک نداشته باشد)
     },
     twitter: {
       card: 'summary_large_image',
