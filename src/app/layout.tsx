@@ -6,6 +6,7 @@ import { siteConfig } from '@/data/site';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MobileCallBar } from '@/components/MobileCallBar';
+import { ConversionEvents } from '@/components/ConversionEvents';
 import { JsonLd } from '@/components/JsonLd';
 import { getLocalBusinessSchema, getOrganizationSchema, getWebsiteSchema } from '@/lib/schema';
 
@@ -105,6 +106,9 @@ gtag('config', '${siteConfig.gaId}');`}
             </Script>
           </>
         )}
+
+        {/* رویدادهای تبدیل (تماس/بله/فرم) — بدون gaId رندر نمی‌شود */}
+        <ConversionEvents />
       </body>
     </html>
   );
