@@ -6,6 +6,7 @@ import { buildMetadata } from '@/lib/seo';
 import { getBlogPostSchema } from '@/lib/schema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PostBlocks } from '@/components/PostBlocks';
+import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
 import { JsonLd } from '@/components/JsonLd';
 
@@ -71,6 +72,16 @@ export default async function BlogPostPage({ params }: Params) {
           <div className="mt-2">
             <PostBlocks blocks={post.blocks} />
           </div>
+
+          {/* سوالات متداول مقاله — با اسکیمای FAQPage */}
+          {post.faqs && post.faqs.length > 0 && (
+            <section className="mt-2">
+              <h2 className="text-xl font-extrabold text-brand-950 sm:text-2xl">سوالات متداول این مقاله</h2>
+              <div className="mt-4">
+                <FaqAccordion faqs={post.faqs} withSchema title="سوالات متداول این مقاله" />
+              </div>
+            </section>
+          )}
 
           {/* خدمات مرتبط برای لینک‌سازی داخلی */}
           {relatedServices.length > 0 && (

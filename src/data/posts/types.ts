@@ -25,6 +25,8 @@ export type Post = {
   seoDescription: string;
   /** اسلاگ خدمات مرتبط برای لینک‌سازی داخلی */
   relatedServices: string[];
+  /** سوالات متداول مقاله — در پایان مقاله با اسکیمای FAQPage رندر می‌شود */
+  faqs?: { q: string; a: string }[];
 };
 
 /** زمان تقریبی مطالعه بر اساس تعداد کلمات */
