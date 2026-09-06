@@ -23,7 +23,13 @@ export async function generateMetadata({ params }: Params) {
     title: area.seoTitle,
     description: area.seoDescription,
     path: `/areas/${area.slug}/`,
-    keywords: [`تعمیر تلویزیون در ${area.name}`, 'تعمیر تلویزیون تهران', area.district],
+    keywords: [
+      `تعمیر تلویزیون در ${area.name}`,
+      'تعمیر تلویزیون تهران',
+      area.district,
+      `تعمیر تلویزیون ${area.district}`,
+      `تعمیر تلویزیون در ${area.district}`,
+    ],
   });
 }
 
