@@ -4,6 +4,7 @@ import Script from 'next/script';
 import './globals.css';
 import { siteConfig } from '@/data/site';
 import { Header } from '@/components/Header';
+import { CampaignBanner } from '@/components/CampaignBanner';
 import { Footer } from '@/components/Footer';
 import { MobileCallBar } from '@/components/MobileCallBar';
 import { ConversionEvents } from '@/components/ConversionEvents';
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           پرش به محتوای اصلی
         </a>
         <Header />
+        <CampaignBanner />
         <main id="main" className="flex-1 pb-16 lg:pb-0">
           {children}
         </main>

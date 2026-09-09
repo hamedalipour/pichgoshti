@@ -31,6 +31,14 @@ export interface SiteConfig {
   };
   rating: { value: string; count: number };
   priceRange: string;
+  /** کمپین تخفیف اختیاری — با فعال بودن، بنر زیر هدر در همه صفحات نمایش داده می‌شود */
+  campaign?: {
+    active: boolean;
+    badge: string;
+    title: string;
+    subtitle: string;
+    href?: string;
+  };
   gaId: string;
   googleSiteVerification: string;
 }
