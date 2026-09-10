@@ -41,6 +41,8 @@ export interface SiteConfig {
   };
   gaId: string;
   googleSiteVerification: string;
+  /** کد تأیید Bing Webmaster (msvalidate.01) — اختیاری */
+  bingSiteVerification?: string;
 }
 
 export const siteConfig: SiteConfig = siteJson;

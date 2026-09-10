@@ -55,6 +55,9 @@ export const metadata: Metadata = {
   ...(siteConfig.googleSiteVerification
     ? { verification: { google: siteConfig.googleSiteVerification } }
     : {}),
+  ...(siteConfig.bingSiteVerification
+    ? { other: { 'msvalidate.01': siteConfig.bingSiteVerification } }
+    : {}),
   openGraph: {
     type: 'website',
     locale: 'fa_IR',

@@ -178,7 +178,7 @@ const SITE_SCHEMA = [
   ['آدرس کارگاه', [['address.street', 'آدرس کامل', 'area', 'full'], ['address.city', 'شهر'], ['address.province', 'استان'], ['address.postalCode', 'کد پستی'], ['geo.lat', 'عرض جغرافیایی (عدد)'], ['geo.lng', 'طول جغرافیایی (عدد)']]],
   ['وب و شبکه‌های اجتماعی', [['url', 'دامنه سایت (https://...)'], ['foundedYear', 'سال شروع فعالیت'], ['social.instagram', 'اینستاگرام'], ['social.telegram', 'تلگرام'], ['social.aparat', 'آپارات']]],
   ['آمار و اعتماد', [['stats.years', 'سال تجربه (مثلاً ۱۲+)'], ['stats.repaired', 'تعمیرشده'], ['stats.technicians', 'تکنسین'], ['stats.warrantyMonths', 'ماه گارانتی (عدد)', 'number'], ['stats.satisfaction', 'رضایت'], ['stats.arrivalTime', 'زمان اعزام']]],
-  ['سئو و ابزارها', [['rating.value', 'امتیاز (اسکیما و بخش نظرات)'], ['rating.count', 'تعداد کل نظرات (عدد)', 'number'], ['priceRange', 'محدوده قیمت اسکیما ($$)'], ['gaId', 'Google Analytics ID (اختیاری)', '', 'full'], ['googleSiteVerification', 'کد تأیید سرچ‌کنسول (اختیاری)', '', 'full']]],
+  ['سئو و ابزارها', [['rating.value', 'امتیاز (اسکیما و بخش نظرات)'], ['rating.count', 'تعداد کل نظرات (عدد)', 'number'], ['priceRange', 'محدوده قیمت اسکیما ($$)'], ['gaId', 'Google Analytics ID (اختیاری)', '', 'full'], ['googleSiteVerification', 'کد تأیید سرچ‌کنسول (اختیاری)', '', 'full'], ['bingSiteVerification', 'کد تأیید بینگ msvalidate.01 (اختیاری)', '', 'full']]],
 ];
 function renderSite(m) {
   for (const [group, items] of SITE_SCHEMA) {

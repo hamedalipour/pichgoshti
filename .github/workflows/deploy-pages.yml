@@ -47,5 +47,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          # برای diff آخرین کامیت در اسکریپت IndexNow
+          fetch-depth: 2
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Ping IndexNow (Bing instant indexing)
+        # اعلام URLهای تغییرکرده به Bing — خطای غیرمرگبار
+        continue-on-error: true
+        run: node scripts/indexnow.mjs
