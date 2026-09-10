@@ -169,6 +169,8 @@ export function getBlogPostSchema(opts: {
   path: string;
   isoDate: string;
   keywords: string[];
+  /** تصویر اصلی مقاله — مسیر نسبی از ریشه سایت */
+  image?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -183,6 +185,6 @@ export function getBlogPostSchema(opts: {
     author: { '@id': `${siteConfig.url}/#organization` },
     publisher: { '@id': `${siteConfig.url}/#organization` },
     mainEntityOfPage: absoluteUrl(opts.path),
-    image: absoluteUrl('/og-default.png'),
+    image: absoluteUrl(opts.image ?? '/og-default.png'),
   };
 }

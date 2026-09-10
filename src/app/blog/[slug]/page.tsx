@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { posts, getPost, readingTime } from '@/data/posts';
 import { getService } from '@/data/services';
 import { buildMetadata } from '@/lib/seo';
+import { absoluteUrl } from '@/data/site';
 import { getBlogPostSchema } from '@/lib/schema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PostBlocks } from '@/components/PostBlocks';
@@ -39,6 +40,7 @@ export default async function BlogPostPage({ params }: Params) {
     .map((s) => getService(s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
   const others = posts.filter((p) => p.slug !== post.slug);
+  const firstImage = post.blocks.find((b): b is Extract<typeof b, { type: 'image' }> => b.type === 'image');
 
   return (
     <>
@@ -49,6 +51,7 @@ export default async function BlogPostPage({ params }: Params) {
           path: `/blog/${post.slug}/`,
           isoDate: post.isoDate,
           keywords: post.keywords,
+          image: firstImage ? absoluteUrl(firstImage.src) : undefined,
         })}
       />
       <article className="mx-auto max-w-6xl px-4 py-10">
