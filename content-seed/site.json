@@ -40,6 +40,13 @@
     "count": 214
   },
   "priceRange": "$$",
+  "campaign": {
+    "active": true,
+    "badge": "کمپین ویژه",
+    "title": "۱۰٪ تخفیف تعویض بک‌لایت",
+    "subtitle": "ویژه دوو و اسنوا — تعمیر در محل شما، فقط تا پایان ماه",
+    "href": "/blog/backlight-cost-by-size/"
+  },
   "gaId": "G-16T8QXCWJX",
   "googleSiteVerification": ""
 }
