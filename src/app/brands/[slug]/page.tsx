@@ -30,8 +30,9 @@ export async function generateMetadata({ params }: Params) {
 
 /** خدمات پیشنهادی برای هر برند */
 const brandServices: Record<string, string[]> = {
-  daewoo: ['power-board', 'android-tv', 'backlight', 'mainboard'],
-  snowa: ['android-tv', 'power-board', 'backlight', 'panel'],
+  // بک‌لایت = سودمحورترین خدمت — اولویت اول در دوو و اسنوا
+  daewoo: ['backlight', 'power-board', 'mainboard', 'android-tv'],
+  snowa: ['backlight', 'power-board', 'android-tv', 'panel'],
   default: ['power-board', 'mainboard', 'backlight', 'panel'],
 };
 
