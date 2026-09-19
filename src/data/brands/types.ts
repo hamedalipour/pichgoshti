@@ -12,4 +12,8 @@ export type Brand = {
   seoDescription: string;
   /** سوالات متداول اختصاصی برند — اگر خالی باشد سوالات جنریک ساخته می‌شود */
   faqs?: { q: string; a: string }[];
+  /** بخش‌های محتوایی عمیق صفحه برند — برای سئوی کوئری‌های برند-ژنریک */
+  sections?: { heading: string; paragraphs: string[] }[];
+  /** لینک‌های داخلی به مقالات تخصصی برند */
+  relatedArticles?: { label: string; href: string }[];
 };

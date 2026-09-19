@@ -91,6 +91,33 @@ export default async function BrandPage({ params }: Params) {
               </Link>
             </div>
 
+            {brand.sections?.map((sec) => (
+              <div key={sec.heading}>
+                <SectionHeading align="start" title={sec.heading} />
+                <div className="mt-5 flex flex-col gap-4">
+                  {sec.paragraphs.map((p, i) => (
+                    <p key={i} className="text-[16px] leading-9 text-slate-700">{p}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {brand.relatedArticles?.length ? (
+              <div>
+                <SectionHeading align="start" title={`مقالات تخصصی تلویزیون ${brand.name}`} />
+                <ul className="mt-6 flex flex-col gap-1 rounded-3xl bg-slate-50 p-6">
+                  {brand.relatedArticles.map((a) => (
+                    <li key={a.href}>
+                      <Link href={a.href} className="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-bold text-slate-700 transition hover:bg-white hover:text-brand-700">
+                        {a.label}
+                        <span aria-hidden="true">←</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
             <div>
               <SectionHeading align="start" title={`سوالات متداول تعمیر تلویزیون ${brand.name}`} />
               <div className="mt-6">
