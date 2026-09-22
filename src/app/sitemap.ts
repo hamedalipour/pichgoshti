@@ -10,10 +10,12 @@ export const dynamic = 'force-static';
 
 /**
  * نقشه سایت — در بیلد به‌صورت خودکار در /sitemap.xml ساخته می‌شود
+ * lastmod صفحات ایستا از تاریخ ثابت آخرین به‌روزرسانی محتوایی خوانده می‌شود
+ * (نه تاریخ بیلد) تا Google آن را به‌روزرسانی معنادار تلقی کند.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+const CONTENT_LAST_MODIFIED = new Date('2026-09-23T12:00:00.000Z');
 
+export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: {
     path: string;
     priority: number;
@@ -28,18 +30,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: 'faq/', priority: 0.6, changeFrequency: 'monthly' },
     { path: 'about/', priority: 0.5, changeFrequency: 'yearly' },
     { path: 'contact/', priority: 0.7, changeFrequency: 'yearly' },
+    { path: 'terms/', priority: 0.3, changeFrequency: 'yearly' },
   ];
 
   return [
     ...staticEntries(),
-    ...services.map((s) => entry(`/services/${s.slug}/`, 0.9)),
+    ...services.map((s) => entry(`/services/${s.slug}/`, 0.9, CONTENT_LAST_MODIFIED)),
     // برندهای تخصصی سایت (دوو و اسنوا) اولویت بالاتری در نقشه سایت دارند
-    ...brands.map((b) => entry(`/brands/${b.slug}/`, featuredBrandSlugs.includes(b.slug) ? 0.9 : 0.7)),
-    ...areas.map((a) => entry(`/areas/${a.slug}/`, 0.8)),
+    ...brands.map((b) =>
+      entry(
+        `/brands/${b.slug}/`,
+        featuredBrandSlugs.includes(b.slug) ? 0.9 : 0.7,
+        CONTENT_LAST_MODIFIED,
+      ),
+    ),
+    ...areas.map((a) => entry(`/areas/${a.slug}/`, 0.8, CONTENT_LAST_MODIFIED)),
     ...posts.map((p) => entry(`/blog/${p.slug}/`, 0.6, new Date(p.isoDate))),
   ];
 
-  function entry(path: string, priority: number, lastModified: Date = now) {
+  function entry(path: string, priority: number, lastModified: Date = CONTENT_LAST_MODIFIED) {
     return {
       url: `${siteConfig.url}${path}`,
       lastModified,
@@ -51,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   function staticEntries() {
     return staticPages.map((p) => ({
       url: `${siteConfig.url}/${p.path}`,
-      lastModified: now,
+      lastModified: CONTENT_LAST_MODIFIED,
       changeFrequency: p.changeFrequency,
       priority: p.priority,
     }));

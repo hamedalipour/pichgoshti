@@ -108,6 +108,7 @@ export function Footer() {
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <li><Link href="/about/" className="transition hover:text-slate-300">درباره ما</Link></li>
             <li><Link href="/faq/" className="transition hover:text-slate-300">سوالات متداول</Link></li>
+            <li><Link href="/terms/" className="transition hover:text-slate-300">شرایط استفاده</Link></li>
             <li><Link href="/contact/" className="transition hover:text-slate-300">تماس</Link></li>
           </ul>
         </div>

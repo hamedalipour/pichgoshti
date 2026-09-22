@@ -1,0 +1,4 @@
+# Cloudflare Pages / Netlify redirects
+# /about بدون اسلش → /about/ (trailingSlash)
+/about          /about/          301
+/about/*        /about/         301

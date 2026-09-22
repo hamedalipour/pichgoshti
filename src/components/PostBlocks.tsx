@@ -86,7 +86,15 @@ export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
             return (
               <figure key={i} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={b.src} alt={b.alt} loading="lazy" className="h-auto w-full" />
+                <img
+                  src={b.src}
+                  alt={b.alt}
+                  loading="lazy"
+                  decoding="async"
+                  width={1200}
+                  height={675}
+                  className="h-auto w-full"
+                />
                 {b.caption ? (
                   <figcaption className="border-t border-slate-100 bg-slate-50 px-4 py-3 text-center text-sm leading-7 text-slate-500">
                     {b.caption}

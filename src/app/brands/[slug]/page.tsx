@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: Params) {
     title: brand.seoTitle,
     description: brand.seoDescription,
     path: `/brands/${brand.slug}/`,
-    keywords: [`تعمیر تلویزیون ${brand.name}`, `تعمیر تلویزیون ${brand.nameEn}`, 'تهران'],
+    keywords: [
+      `تعمیر تلویزیون ${brand.name}`,
+      `تعمیر تلویزیون ${brand.nameEn}`,
+      'تهران',
+      ...(brand.keywords ?? []),
+    ],
   });
 }
 

@@ -10,6 +10,8 @@ export type Brand = {
   commonIssues: string[];
   seoTitle: string;
   seoDescription: string;
+  /** متغیرهای املایی/لاتین برند برای پوشش کوئری‌های GSC */
+  keywords?: string[];
   /** سوالات متداول اختصاصی برند — اگر خالی باشد سوالات جنریک ساخته می‌شود */
   faqs?: { q: string; a: string }[];
   /** بخش‌های محتوایی عمیق صفحه برند — برای سئوی کوئری‌های برند-ژنریک */
