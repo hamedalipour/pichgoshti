@@ -27,6 +27,13 @@ export type Post = {
   relatedServices: string[];
   /** سوالات متداول مقاله — در پایان مقاله با اسکیمای FAQPage رندر می‌شود */
   faqs?: { q: string; a: string }[];
+  /** مراحل HowTo برای اسکیمای راهنما (اختیاری) */
+  howTo?: {
+    name: string;
+    description?: string;
+    totalTime?: string;
+    steps: { name: string; text: string }[];
+  };
 };
 
 /** زمان تقریبی مطالعه بر اساس تعداد کلمات */

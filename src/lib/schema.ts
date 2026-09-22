@@ -162,6 +162,33 @@ export function getServiceSchema(opts: {
   return schema;
 }
 
+/** اسکیمای HowTo برای راهنماهای مرحله‌به‌مرحله */
+export function getHowToSchema(opts: {
+  name: string;
+  description?: string;
+  totalTime?: string;
+  path: string;
+  image?: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.name,
+    description: opts.description ?? opts.name,
+    url: absoluteUrl(opts.path),
+    inLanguage: 'fa-IR',
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    ...(opts.image ? { image: absoluteUrl(opts.image) } : {}),
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
 /** اسکیمای BlogPosting برای مقالات */
 export function getBlogPostSchema(opts: {
   title: string;

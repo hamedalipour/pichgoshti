@@ -4,7 +4,7 @@ import { posts, getPost, readingTime } from '@/data/posts';
 import { getService } from '@/data/services';
 import { buildMetadata } from '@/lib/seo';
 import { absoluteUrl } from '@/data/site';
-import { getBlogPostSchema } from '@/lib/schema';
+import { getBlogPostSchema, getHowToSchema } from '@/lib/schema';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PostBlocks } from '@/components/PostBlocks';
 import { FaqAccordion } from '@/components/FaqAccordion';
@@ -54,6 +54,18 @@ export default async function BlogPostPage({ params }: Params) {
           image: firstImage ? absoluteUrl(firstImage.src) : undefined,
         })}
       />
+      {post.howTo && post.howTo.steps.length > 0 && (
+        <JsonLd
+          data={getHowToSchema({
+            name: post.howTo.name,
+            description: post.howTo.description,
+            totalTime: post.howTo.totalTime,
+            path: `/blog/${post.slug}/`,
+            image: firstImage ? absoluteUrl(firstImage.src) : undefined,
+            steps: post.howTo.steps,
+          })}
+        />
+      )}
       <article className="mx-auto max-w-6xl px-4 py-10">
         <div className="mx-auto flex max-w-3xl flex-col gap-5">
           <Breadcrumbs items={[{ name: 'وبلاگ', href: '/blog/' }, { name: post.title }]} />
