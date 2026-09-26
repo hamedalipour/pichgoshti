@@ -19,6 +19,10 @@ export type Post = {
   isoDate: string;
   /** تاریخ نمایشی فارسی */
   dateFa: string;
+  /** تاریخ بازنگری محتوا (اختیاری) — در sitemap، اسکیمای dateModified و بج نمایشی استفاده می‌شود */
+  dateUpdated?: string;
+  /** تاریخ بازنگری نمایشی فارسی */
+  dateUpdatedFa?: string;
   keywords: string[];
   blocks: PostBlock[];
   seoTitle: string;

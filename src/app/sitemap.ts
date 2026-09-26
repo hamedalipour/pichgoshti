@@ -13,7 +13,8 @@ export const dynamic = 'force-static';
  * lastmod صفحات ایستا از تاریخ ثابت آخرین به‌روزرسانی محتوایی خوانده می‌شود
  * (نه تاریخ بیلد) تا Google آن را به‌روزرسانی معنادار تلقی کند.
  */
-const CONTENT_LAST_MODIFIED = new Date('2026-09-23T12:00:00.000Z');
+const CONTENT_LAST_MODIFIED = new Date('2026-09-26T12:00:00.000Z');
+
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: {
@@ -45,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ),
     ),
     ...areas.map((a) => entry(`/areas/${a.slug}/`, 0.8, CONTENT_LAST_MODIFIED)),
-    ...posts.map((p) => entry(`/blog/${p.slug}/`, 0.6, new Date(p.isoDate))),
+    ...posts.map((p) => entry(`/blog/${p.slug}/`, 0.6, new Date(p.dateUpdated ?? p.isoDate))),
   ];
 
   function entry(path: string, priority: number, lastModified: Date = CONTENT_LAST_MODIFIED) {

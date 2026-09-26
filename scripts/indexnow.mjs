@@ -15,7 +15,7 @@ const KEY = '00fdbbcb9e725195db1b2b7a189a8203';
 const HOST = BASE.replace(/^https?:\/\//, '');
 
 // صفحات کلیدی — همیشه اعلام می‌شوند
-const urls = ['', 'blog/', 'brands/', 'brands/daewoo/', 'brands/snowa/', 'services/backlight/', 'prices/', 'areas/'].map(
+const urls = ['', 'blog/', 'brands/', 'brands/daewoo/', 'brands/snowa/', 'brands/samsung/', 'services/backlight/', 'prices/', 'areas/'].map(
   (p) => `${BASE}/${p}`
 );
 
@@ -25,7 +25,8 @@ try {
   if (diff.includes('content/posts.json')) {
     const posts = JSON.parse(fs.readFileSync('content/posts.json', 'utf8'));
     const weekAgo = Date.now() - 7 * 24 * 3600 * 1000;
-    const recent = posts.filter((p) => new Date(p.isoDate).getTime() > weekAgo).slice(0, 10);
+    const lastTouched = (p) => (p.dateUpdated ? new Date(p.dateUpdated) : new Date(p.isoDate)).getTime();
+    const recent = posts.filter((p) => lastTouched(p) > weekAgo).slice(0, 10);
     const chosen = recent.length ? recent : posts.slice(0, 5);
     for (const p of chosen) urls.push(`${BASE}/blog/${p.slug}/`);
   }

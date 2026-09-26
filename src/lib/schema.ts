@@ -195,6 +195,8 @@ export function getBlogPostSchema(opts: {
   description: string;
   path: string;
   isoDate: string;
+  /** تاریخ بازنگری — اگر مقاله‌ای بازنگری شده، dateModified همین است */
+  updated?: string;
   keywords: string[];
   /** تصویر اصلی مقاله — مسیر نسبی از ریشه سایت */
   image?: string;
@@ -206,7 +208,7 @@ export function getBlogPostSchema(opts: {
     description: opts.description,
     url: absoluteUrl(opts.path),
     datePublished: opts.isoDate,
-    dateModified: opts.isoDate,
+    dateModified: opts.updated ?? opts.isoDate,
     inLanguage: 'fa-IR',
     keywords: opts.keywords.join(', '),
     author: { '@id': `${siteConfig.url}/#organization` },

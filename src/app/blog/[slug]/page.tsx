@@ -50,6 +50,7 @@ export default async function BlogPostPage({ params }: Params) {
           description: post.seoDescription,
           path: `/blog/${post.slug}/`,
           isoDate: post.isoDate,
+          updated: post.dateUpdated,
           keywords: post.keywords,
           image: firstImage ? absoluteUrl(firstImage.src) : undefined,
         })}
@@ -76,6 +77,11 @@ export default async function BlogPostPage({ params }: Params) {
             <time dateTime={post.isoDate} className="rounded-full bg-slate-100 px-3.5 py-1.5 font-bold">
               📅 {post.dateFa}
             </time>
+            {post.dateUpdated && post.dateUpdated !== post.isoDate && (
+              <span className="rounded-full bg-emerald-50 px-3.5 py-1.5 font-bold text-emerald-700">
+                ✅ آخرین بازنگری: {post.dateUpdatedFa || post.dateUpdated}
+              </span>
+            )}
             <span className="rounded-full bg-slate-100 px-3.5 py-1.5 font-bold">
               ⏱ زمان مطالعه: {readingTime(post.blocks)}
             </span>
