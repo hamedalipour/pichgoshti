@@ -53,6 +53,21 @@ jobs:
           fetch-depth: 2
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact
+
+      - name: Unpack site artifact
+        # out/sitemap.xml برای ارسال کل URLها به IndexNow وقتی ساختار سایت تغییر کرده
+        # continue-on-error: اگر artifact در دسترس نبود، IndexNow به حالت عادی برمی‌گردد
+        continue-on-error: true
+        run: |
+          mkdir -p out
+          tar -xf "${{ runner.temp }}/pages-artifact/github-pages.tar" -C out
+
       - name: Ping IndexNow (Bing instant indexing)
         # اعلام URLهای تغییرکرده به Bing — خطای غیرمرگبار
         continue-on-error: true
