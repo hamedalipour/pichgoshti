@@ -5,6 +5,7 @@ import { getService } from '@/data/services';
 import { buildMetadata } from '@/lib/seo';
 import { absoluteUrl } from '@/data/site';
 import { getBlogPostSchema, getHowToSchema } from '@/lib/schema';
+import { buildImageSrcSet, getImageMeta, IMAGE_SIZES } from '@/lib/images';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PostBlocks } from '@/components/PostBlocks';
 import { FaqAccordion } from '@/components/FaqAccordion';
@@ -41,9 +42,21 @@ export default async function BlogPostPage({ params }: Params) {
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
   const others = posts.filter((p) => p.slug !== post.slug);
   const firstImage = post.blocks.find((b): b is Extract<typeof b, { type: 'image' }> => b.type === 'image');
+  const firstImageMeta = firstImage ? getImageMeta(firstImage.src) : null;
+  const firstImageSrcSet = firstImage && firstImageMeta ? buildImageSrcSet(firstImage.src, firstImageMeta) : undefined;
 
   return (
     <>
+      {/* پیش‌لود تصویر اول مقاله (LCP) — React 19 این لینک را به <head> منتقل می‌کند */}
+      {firstImage && firstImageMeta && (
+        <link
+          rel="preload"
+          as="image"
+          href={firstImage.src}
+          {...(firstImageSrcSet ? { imageSrcSet: firstImageSrcSet, imageSizes: IMAGE_SIZES } : {})}
+          fetchPriority="high"
+        />
+      )}
       <JsonLd
         data={getBlogPostSchema({
           title: post.title,

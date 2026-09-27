@@ -1,0 +1,18 @@
+{
+  "/images/blog/backlight-replacement-workshop-1.webp": {
+    "width": 1400,
+    "height": 1050,
+    "variants": [
+      768,
+      1080
+    ]
+  },
+  "/images/blog/backlight-replacement-workshop-2.webp": {
+    "width": 1400,
+    "height": 747,
+    "variants": [
+      768,
+      1080
+    ]
+  }
+}

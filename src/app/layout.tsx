@@ -11,13 +11,15 @@ import { ConversionEvents } from '@/components/ConversionEvents';
 import { JsonLd } from '@/components/JsonLd';
 import { getLocalBusinessSchema, getOrganizationSchema, getWebsiteSchema } from '@/lib/schema';
 
-/* فونت وزیرمتن — self-host با next/font (بدون درخواست خارجی، بدون CLS) */
+/* فونت وزیرمتن — self-host با next/font (بدون درخواست خارجی، بدون CLS)
+   نسخه‌های *-Fa-* سابست‌شده‌اند (فقط حروف فارسی/لاتین سایت ≈19kb به‌ازای هر وزن
+   به‌جای 49kb) — بازتولید: node scripts/img-meta.mjs و python scripts/subset-fonts.py.
+   وزن 500 (یک استفاده در هدر) حذف شد و در globals.css به 400 نگاشت شده است. */
 const vazirmatn = localFont({
   src: [
-    { path: '../fonts/Vazirmatn-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../fonts/Vazirmatn-Medium.woff2', weight: '500', style: 'normal' },
-    { path: '../fonts/Vazirmatn-Bold.woff2', weight: '700', style: 'normal' },
-    { path: '../fonts/Vazirmatn-ExtraBold.woff2', weight: '800', style: 'normal' },
+    { path: '../fonts/Vazirmatn-Fa-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/Vazirmatn-Fa-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../fonts/Vazirmatn-Fa-ExtraBold.woff2', weight: '800', style: 'normal' },
   ],
   variable: '--font-vazirmatn',
   display: 'swap',
@@ -99,11 +101,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={getWebsiteSchema()} />
         <JsonLd data={getOrganizationSchema()} />
 
-        {/* Google Analytics 4 — فقط در صورت تنظیم شناسه در src/data/site.ts */}
+        {/* Google Analytics 4 — فقط در صورت تنظیم شناسه در src/data/site.ts
+            lazyOnload: دانلود بعد از load صفحه تا با LCP/فونت رقابت نکند */}
         {siteConfig.gaId && (
           <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaId}`} strategy="afterInteractive" />
-            <Script id="ga4" strategy="afterInteractive">
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaId}`} strategy="lazyOnload" />
+            <Script id="ga4" strategy="lazyOnload">
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

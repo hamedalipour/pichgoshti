@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import type { PostBlock } from '@/data/posts';
+import { buildImageSrcSet, getImageMeta, IMAGE_SIZES } from '@/lib/images';
 
 /**
  * رندر بلوک‌های محتوای مقاله با استایل یکنواخت
  */
 export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
+  const firstImageIndex = blocks.findIndex((b) => b.type === 'image');
   return (
     <div className="article flex flex-col gap-6">
       {blocks.map((b, i) => {
@@ -82,17 +84,22 @@ export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
                 {b.text}
               </Link>
             );
-          case 'image':
+          case 'image': {
+            const meta = getImageMeta(b.src);
+            const srcSet = buildImageSrcSet(b.src, meta);
+            const isLcp = i === firstImageIndex;
             return (
               <figure key={i} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={b.src}
+                  {...(srcSet ? { srcSet, sizes: IMAGE_SIZES } : {})}
                   alt={b.alt}
-                  loading="lazy"
+                  loading={isLcp ? 'eager' : 'lazy'}
+                  fetchPriority={isLcp ? 'high' : undefined}
                   decoding="async"
-                  width={1200}
-                  height={675}
+                  width={meta.width}
+                  height={meta.height}
                   className="h-auto w-full"
                 />
                 {b.caption ? (
@@ -102,6 +109,7 @@ export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
                 ) : null}
               </figure>
             );
+          }
           default:
             return null;
         }
