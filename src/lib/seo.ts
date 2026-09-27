@@ -39,7 +39,11 @@ export function buildMetadata({
     title,
     description,
     keywords: keywords?.length ? keywords : undefined,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      // کشف خودکار فید RSS توسط موتورها — بینگ از فید برای کشف/خزش مجدد استفاده می‌کند
+      types: { 'application/rss+xml': '/rss.xml' },
+    },
     robots: noIndex ? { index: false, follow: false } : baseRobots,
     openGraph: {
       title,

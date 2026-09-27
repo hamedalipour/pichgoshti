@@ -48,18 +48,21 @@ export const metadata: Metadata = {
     'تعمیر برد تلویزیون',
     'تعویض بک لایت تلویزیون',
   ],
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    // کشف خودکار فید توسط موتورها (بینگ برای کشف مجدد محتوا از فید استفاده می‌کند)
+    types: { 'application/rss+xml': '/rss.xml' },
+  },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
-  ...(siteConfig.googleSiteVerification
-    ? { verification: { google: siteConfig.googleSiteVerification } }
-    : {}),
-  ...(siteConfig.bingSiteVerification
-    ? { other: { 'msvalidate.01': siteConfig.bingSiteVerification } }
-    : {}),
+  verification: {
+    ...(siteConfig.googleSiteVerification ? { google: siteConfig.googleSiteVerification } : {}),
+    // توجه: باید زیر کلید verification باشد تا متاتگ msvalidate.01 رندر شود
+    ...(siteConfig.bingSiteVerification ? { other: { 'msvalidate.01': siteConfig.bingSiteVerification } } : {}),
+  },
   openGraph: {
     type: 'website',
     locale: 'fa_IR',

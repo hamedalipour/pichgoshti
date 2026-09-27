@@ -11,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,
-    host: siteConfig.url,
+    // فرمت رسمی بینگ برای Host: میزبان بدون scheme (مثلاً pich-goshti.ir)
+    host: siteConfig.url.replace(/^https?:\/\//, ''),
   };
 }
