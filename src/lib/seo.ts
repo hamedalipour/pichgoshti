@@ -24,6 +24,17 @@ const baseRobots = {
   },
 };
 
+/**
+ * حذف نام برند از انتهای عنوان.
+ * قالب ریشه (`%s | نام برند`) خودش پسوند را اضافه می‌کند؛ اگر عنوان هم برند را در انتها
+ * داشته باشد، <title> دو بار برند می‌گیرد و فضای SERP بی‌دلیل هدر می‌رود.
+ * (در openGraph/twitter همان عنوان خام می‌ماند، چون آنجا قالبی اعمال نمی‌شود.)
+ */
+function withoutBrandSuffix(title: string): string {
+  const brand = siteConfig.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return title.replace(new RegExp(`\\s*(?:[|–—-]\\s*)?${brand}\\s*$`), '').trim();
+}
+
 /** سازنده متادیتای استاندارد سئو برای همه صفحات */
 export function buildMetadata({
   title,
@@ -36,7 +47,7 @@ export function buildMetadata({
 }: MetaInput): Metadata {
   const url = absoluteUrl(pathof(path));
   return {
-    title,
+    title: withoutBrandSuffix(title),
     description,
     keywords: keywords?.length ? keywords : undefined,
     alternates: {
