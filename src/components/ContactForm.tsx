@@ -14,40 +14,58 @@ type FormState = 'idle' | 'sent';
 export function ContactForm() {
   const [state, setState] = useState<FormState>('idle');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
+  /** متن درخواست را از فیلدهای فرم می‌سازد (هم برای بله و هم برای ایمیل) */
+  function composeMessage(fd: FormData): string {
     const name = String(fd.get('name') || '').trim();
     const phone = String(fd.get('phone') || '');
     const brand = String(fd.get('brand') || '');
     const service = String(fd.get('service') || '');
     const note = String(fd.get('note') || '');
 
-    const lines = [
+    return [
       'سلام، درخواست تعمیر تلویزیون از سایت پیچ‌گوشتی:',
       `• نام: ${name}`,
       `• شماره تماس: ${phone}`,
       brand && `• برند تلویزیون: ${brand}`,
       service && `• نوع مشکل/خدمت: ${service}`,
       note && `• توضیحات: ${note}`,
-    ].filter(Boolean);
+    ]
+      .filter(Boolean)
+      .join('\n');
+  }
 
-    const message = lines.join('\n');
-    // بله برخلاف واتساپ امکان پیش‌فرض‌کردن متن در لینک را ندارد؛ متن درخواست را کپی می‌کنیم
+  // بله برخلاف واتساپ امکان پیش‌فرض‌کردن متن در لینک را ندارد؛ متن درخواست را کپی می‌کنیم
+  async function copyToClipboard(text: string) {
     try {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(text);
     } catch {
       const ta = document.createElement('textarea');
-      ta.value = message;
+      ta.value = text;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand('copy');
       ta.remove();
     }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const message = composeMessage(new FormData(form));
+    await copyToClipboard(message);
     window.open(baleUrl(), '_blank', 'noopener');
     setState('sent');
     form.reset();
+  }
+
+  /** اگر کاربر پیام‌رسان بله ندارد، همین درخواست را با ایمیل می‌فرستد تا لید از دست نرود */
+  function handleEmail(e: React.MouseEvent<HTMLButtonElement>) {
+    const form = e.currentTarget.form;
+    if (!form || !form.reportValidity()) return;
+    const message = composeMessage(new FormData(form));
+    window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+      'درخواست تعمیر تلویزیون از سایت',
+    )}&body=${encodeURIComponent(message)}`;
   }
 
   if (state === 'sent') {
@@ -140,6 +158,16 @@ export function ContactForm() {
       >
         <span aria-hidden="true">💬</span>
         ارسال درخواست در بله
+      </button>
+
+      {/* مسیر جایگزین برای کسانی که پیام‌رسان بله ندارند — جلوگیری از هدر رفتن لید */}
+      <button
+        type="button"
+        onClick={handleEmail}
+        className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-extrabold text-slate-700 transition hover:bg-slate-50"
+      >
+        <span aria-hidden="true">✉️</span>
+        ارسال با ایمیل (اگر بله را نصب ندارید)
       </button>
 
       <p className="text-center text-xs leading-6 text-slate-500">

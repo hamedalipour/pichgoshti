@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { posts, getPost, readingTime } from '@/data/posts';
 import { getService } from '@/data/services';
 import { buildMetadata } from '@/lib/seo';
-import { absoluteUrl } from '@/data/site';
+import { absoluteUrl, siteConfig, telHref } from '@/data/site';
 import { getBlogPostSchema, getHowToSchema } from '@/lib/schema';
 import { buildImageSrcSet, getImageMeta, IMAGE_SIZES } from '@/lib/images';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -106,6 +106,27 @@ export default async function BlogPostPage({ params }: Params) {
           <div className="mt-2">
             <PostBlocks blocks={post.blocks} />
           </div>
+
+          {/* CTA درون مقاله — بیشترین ترافیک سایت روی همین مقالات هزینه/خرابی است؛
+              تماس تلفنی همانجا در دسترس باشد تا خواننده برای «پرسیدن قیمت» از سایت خارج نشود. */}
+          <aside className="mt-2 flex flex-col items-start gap-4 rounded-3xl border border-accent-500/40 bg-accent-500/10 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div>
+              <p className="text-base font-extrabold text-brand-950">
+                هزینه دقیق تعمیر تلویزیون خود را همین حالا بپرسید
+              </p>
+              <p className="mt-1 text-sm leading-7 text-slate-600">
+                مشاوره و عیب‌یابی تلفنی، هزینه‌ای ندارد و قیمت قطعی قبل از شروع کار با شما توافق می‌شود.
+              </p>
+            </div>
+            <a
+              href={telHref(siteConfig.phone)}
+              className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-accent-500 px-6 py-3.5 text-sm font-extrabold text-brand-950 shadow-sm transition hover:bg-accent-400"
+            >
+              <span aria-hidden="true">☎️</span>
+              تماس فوری
+              <span dir="ltr">{siteConfig.phoneDisplay}</span>
+            </a>
+          </aside>
 
           {/* سوالات متداول مقاله — با اسکیمای FAQPage */}
           {post.faqs && post.faqs.length > 0 && (

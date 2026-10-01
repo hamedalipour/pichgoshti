@@ -5,8 +5,7 @@ import { siteConfig, telHref, baleUrl } from '@/data/site';
 
 export const metadata = buildMetadata({
   title: 'تماس با ما و ثبت درخواست تعمیر تلویزیون',
-  description:
-    'شماره تماس، بله، آدرس کارگاه در سعادت‌آباد تهران و فرم ثبت درخواست تعمیر تلویزیون؛ پاسخ‌گویی شنبه تا پنجشنبه ۹ صبح تا ۸ شب.',
+  description: `شماره تماس، بله، آدرس کارگاه (${siteConfig.address.street}) و فرم ثبت درخواست تعمیر تلویزیون؛ پاسخ‌گویی شنبه تا پنجشنبه ۹ صبح تا ۸ شب.`,
   path: '/contact/',
 });
 
