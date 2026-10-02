@@ -7,6 +7,7 @@ import { panasonicBrand } from './panasonic';
 import { xvisionBrand } from './xvision';
 import { gplusBrand } from './gplus';
 import { hisenseBrand } from './hisense';
+import { parsBrand } from './pars';
 import { tclBrand } from './tcl';
 import { amicoBrand } from './amico';
 import type { Brand } from './types';
@@ -23,6 +24,7 @@ export const brands: Brand[] = [
   gplusBrand,
   hisenseBrand,
   tclBrand,
+  parsBrand,
   amicoBrand,
 ];
 

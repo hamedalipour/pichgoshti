@@ -9,6 +9,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
 import { JsonLd } from '@/components/JsonLd';
+import { SidebarCallCard } from '@/components/SidebarCallCard';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -129,6 +130,7 @@ export default async function ServicePage({ params }: Params) {
           </article>
 
           <aside className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+            <SidebarCallCard context={`برای ${service.navLabel}`} />
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <h2 className="text-base font-extrabold text-brand-950">پوشش همه مناطق تهران</h2>
               <p className="mt-2 text-sm leading-7 text-slate-500">

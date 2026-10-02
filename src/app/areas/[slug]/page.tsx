@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { areas, getArea, getNearbyAreas } from '@/data/areas';
 import { services } from '@/data/services';
 import { buildMetadata } from '@/lib/seo';
+import { siteConfig, telHref } from '@/data/site';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { SectionHeading } from '@/components/SectionHeading';
 import { ServiceCard } from '@/components/Cards';
@@ -125,7 +126,14 @@ export default async function AreaPage({ params }: Params) {
               <p className="mt-2 text-sm leading-7 text-slate-300">
                 مدل تلویزیون و مشکل را در بله بفرستید؛ برآورد هزینه و زمان اعزام فوری.
               </p>
-              <Link href="/contact/" className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-accent-500 px-5 py-3 text-sm font-extrabold text-brand-950 transition hover:bg-accent-400">
+              <a
+                href={telHref(siteConfig.phone)}
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-brand-900 transition hover:bg-slate-100"
+              >
+                <span aria-hidden="true">☎️</span>
+                تماس فوری — <span dir="ltr">{siteConfig.phoneDisplay}</span>
+              </a>
+              <Link href="/contact/" className="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-accent-500 px-5 py-3 text-sm font-extrabold text-brand-950 transition hover:bg-accent-400">
                 ثبت درخواست تعمیر
               </Link>
             </div>

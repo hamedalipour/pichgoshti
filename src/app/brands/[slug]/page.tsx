@@ -9,6 +9,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { ServiceCard } from '@/components/Cards';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
+import { SidebarCallCard } from '@/components/SidebarCallCard';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -132,6 +133,7 @@ export default async function BrandPage({ params }: Params) {
           </article>
 
           <aside className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+            <SidebarCallCard context={`برای تلویزیون ${brand.name}`} />
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <h2 className="text-base font-extrabold text-brand-950">خدمات برای {brand.name}</h2>
               <ul className="mt-3 flex flex-col gap-2 text-sm">

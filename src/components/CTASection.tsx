@@ -46,6 +46,8 @@ export function CTASection({
             </a>
           </div>
           <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-slate-400">
+            <li>تعمیر همان روز تا حداکثر ۲۴ ساعت</li>
+            <li aria-hidden="true" className="hidden h-4 w-px bg-white/20 sm:block" />
             <li>گارانتی کتبی {siteConfig.stats.warrantyMonths} ماهه</li>
             <li aria-hidden="true" className="hidden h-4 w-px bg-white/20 sm:block" />
             <li>اعزام {siteConfig.stats.arrivalTime}</li>

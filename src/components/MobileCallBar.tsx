@@ -15,7 +15,14 @@ export function MobileCallBar() {
           href={telHref(siteConfig.phone)}
           className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-3 text-sm font-extrabold text-white"
         >
-          <span aria-hidden="true">☎️</span> تماس تلفنی
+          <span aria-hidden="true" className="relative flex size-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-emerald-300" />
+          </span>
+          تماس فوری
+          <span dir="ltr" className="text-xs font-bold opacity-90">
+            {siteConfig.phoneDisplay}
+          </span>
         </a>
         <a
           href={baleUrl()}
