@@ -41,6 +41,25 @@ export default async function BlogPostPage({ params }: Params) {
     .map((s) => getService(s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
   const others = posts.filter((p) => p.slug !== post.slug);
+
+  // لینک‌سازی خوشه‌ای: مقالات هم‌خوشه (خدمت مشترک یا کلیدواژه مشترک) به اولویت
+  // تا صفحات یک خوشه (مثلاً بک‌لایت) به هم اشاره کنند و کنالیزیشن کم شود.
+  const postKeywords = post.keywords.map((k) => k.trim());
+  const relatedRanked = others
+    .map((p) => {
+      const sharedServices = p.relatedServices.filter((s) =>
+        post.relatedServices.includes(s),
+      ).length;
+      const sharedKeywords = p.keywords.filter((k) =>
+        postKeywords.some(
+          (pk) => pk.includes(k.trim()) || k.trim().includes(pk),
+        ),
+      ).length;
+      return { p, score: sharedServices * 2 + sharedKeywords };
+    })
+    .sort((a, b) => b.score - a.score)
+    .map((x) => x.p);
+  const relatedPosts = relatedRanked.slice(0, 3);
   const firstImage = post.blocks.find((b): b is Extract<typeof b, { type: 'image' }> => b.type === 'image');
   const firstImageMeta = firstImage ? getImageMeta(firstImage.src) : null;
   const firstImageSrcSet = firstImage && firstImageMeta ? buildImageSrcSet(firstImage.src, firstImageMeta) : undefined;
@@ -158,7 +177,7 @@ export default async function BlogPostPage({ params }: Params) {
           <section className="mt-4">
             <h2 className="text-lg font-extrabold text-brand-950">مطالب مرتبط</h2>
             <ul className="mt-4 flex flex-col gap-2">
-              {others.slice(0, 3).map((p) => (
+              {relatedPosts.map((p) => (
                 <li key={p.slug}>
                   <Link href={`/blog/${p.slug}/`} className="flex items-center justify-between rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-700 ring-1 ring-slate-200 transition hover:border-brand-300 hover:text-brand-700">
                     {p.title}
