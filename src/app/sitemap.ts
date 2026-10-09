@@ -9,12 +9,26 @@ import { posts } from '@/data/posts';
 export const dynamic = 'force-static';
 
 /**
- * نقشه سایت — در بیلد به‌صورت خودکار در /sitemap.xml ساخته می‌شود
- * lastmod صفحات ایستا از تاریخ ثابت آخرین به‌روزرسانی محتوایی خوانده می‌شود
- * (نه تاریخ بیلد) تا Google آن را به‌روزرسانی معنادار تلقی کند.
+ * lastmod صفحات ایستا (خدمات، برندها، مناطق، صفحات ثابت).
+ *
+ * قبلاً این تاریخ هاردکد بود و با تغییر محتوا به‌روز نمی‌شد؛ یعنی lastmod دروغ می‌گفت
+ * و Google آن را نادیده می‌گیرد. حالو از جدیدترین تاریخ به‌روزرسانی مقالات
+ * (content/posts.json) خوانده می‌شود تا هر بار که محتوا دست بخورد، سیگنال واقعی بدهد.
  */
-const CONTENT_LAST_MODIFIED = new Date('2026-09-26T12:00:00.000Z');
+const STATIC_BASELINE = new Date('2026-09-26T12:00:00.000Z');
 
+/** جدیدترین تاریخ به‌روزرسانی بین همه مقالات — مبنای lastmod صفحات ایستا */
+const latestPostUpdate = posts
+  .map((p) => p.dateUpdated ?? p.isoDate)
+  .sort()
+  .at(-1);
+
+const CONTENT_LAST_MODIFIED = new Date(
+  Math.max(
+    STATIC_BASELINE.getTime(),
+    new Date(latestPostUpdate ?? STATIC_BASELINE).getTime(),
+  ),
+);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: {
