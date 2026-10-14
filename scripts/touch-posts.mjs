@@ -10,20 +10,22 @@ import fs from 'node:fs';
 
 const FILE = 'content/posts.json';
 const DRY = process.argv.includes('--dry');
-const TODAY = '2026-10-06';
-const TODAY_FA = '۱۴ مهر ۱۴۰۵';
+const TODAY = '2026-10-14';
+const TODAY_FA = '۲۲ مهر ۱۴۰۵';
 
 // مقالاتی که در این موج محتوایی/متا به‌روز شدند
 const TARGETS = [
   'black-screen-with-sound',
   'daewoo-backlight-replacement',
   'snowa-backlight-replacement',
+  'backlight-cost-by-size',
+  'backlight-repair-vs-replace',
   'standby-light-blinking',
   'snowa-android-slow',
   'power-board-signs',
   'android-flash-cost',
   'tv-repair-cost',
-  'backlight-cost-by-size',
+  'backlight-signs',
   'snowa-tv-repair',
   'panel-vs-new-tv',
   'mainboard-repair-cost',
