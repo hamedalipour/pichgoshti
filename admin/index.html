@@ -202,6 +202,31 @@ function renderPrices(m) {
     ));
     card.append(field('توضیح دسته (اختیاری)', cat.note || '', (e) => (cat.note = e.target.value || undefined), { full: 'full' }));
 
+    // کادر هشدار بازار (برای دسته‌هایی مثل پنل که قیمت‌شان ثابت نیست)
+    if (!cat.notice) cat.notice = { title: '', body: '', points: [''] };
+    const nBody = el('textarea', { style: 'width:100%;min-height:60px', oninput: (e) => (cat.notice.body = e.target.value) });
+    nBody.value = cat.notice.body;
+    const pointsWrap = el('div', { style: 'display:flex;flex-direction:column;gap:6px' });
+    const renderPoints = () => {
+      pointsWrap.innerHTML = '';
+      cat.notice.points.forEach((pt, pi) => {
+        const inp = el('input', { value: pt, style: 'flex:1', oninput: (e) => (cat.notice.points[pi] = e.target.value) });
+        pointsWrap.append(el('div', { style: 'display:flex;gap:6px' }, inp,
+          el('button', { class: 'btn btn-danger btn-sm', onclick: () => { cat.notice.points.splice(pi, 1); renderPoints(); } }, '✕')));
+      });
+    };
+    renderPoints();
+    card.append(el('div', { class: 'card', style: 'background:#fffbeb;border-color:#fcd34d' },
+      el('h4', { style: 'margin-top:0' }, '⚠️ کادر هشدار بازار (بالای جدول این دسته)'),
+      field('عنوان کادر', cat.notice.title, (e) => (cat.notice.title = e.target.value)),
+      el('label', { class: 'lbl' }, 'متن توضیح'),
+      nBody,
+      el('label', { class: 'lbl' }, 'بندها'),
+      pointsWrap,
+      el('button', { class: 'btn btn-gray btn-sm', style: 'margin-top:8px', onclick: () => { cat.notice.points.push(''); renderPoints(); } }, '+ افزودن بند'),
+      el('button', { class: 'btn btn-danger btn-sm', style: 'margin-top:8px;margin-inline-start:6px', onclick: () => { if (confirm('حذف کادر هشدار این دسته؟')) { delete cat.notice; renderTab(); } } }, 'حذف کادر هشدار'),
+    ));
+
     const table = el('table', { class: 'rows' });
     table.append(el('thead', {}, el('tr', {},
       el('th', {}, 'نام خدمت'), el('th', {}, 'سایز'), el('th', {}, 'از (تومان)'), el('th', {}, 'تا (تومان)'), el('th', {}, 'واحد'), el('th', {}, 'توضیح'), el('th', {}, ''),

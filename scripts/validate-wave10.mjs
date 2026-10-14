@@ -153,5 +153,30 @@ check('صفحه مقاله جدید ساخته شده', fs.existsSync('out/blog/
 const sitemapHasNew = sitemap.includes('/blog/backlight-repair-vs-replace/');
 check('مقاله جدید در سایت‌مپ هست', sitemapHasNew);
 
+// ── ۱۱. کادر هشدار بازار پنل ───────────────────────────────────────
+// بازار پنل با نوسان شدید همراه است، بسیاری از پنل‌ها موجود نیست و
+// فهرست‌های قیمتی به‌روز نیستند؛ این باید روی صفحه تعرفه و صفحه خدمت
+// شفاف گفته شود تا مشتری برآورد اشتباه نگیرد.
+const prices = JSON.parse(read('content/prices.json'));
+const panelCat = prices.priceCategories.find((c) => c.id === 'panel');
+check('دسته پنل کادر هشدار بازار دارد', Boolean(panelCat?.notice?.points?.length >= 3));
+if (panelCat?.notice) {
+  check('کادر هشدار پنل هر سه واقعیت بازار را پوشش می‌دهد',
+    panelCat.notice.points.some((p) => p.includes('نوسان')) &&
+    panelCat.notice.points.some((p) => p.includes('موجود')) &&
+    panelCat.notice.points.some((p) => p.includes('به‌روز')));
+}
+
+// در HTML صفحه تعرفه و صفحه خدمت پنل باید دیده شود
+const pricesHtml = read('out/prices/index.html');
+check('کادر هشدار پنل در /prices/ رندر می‌شود',
+  pricesHtml.includes('نوسان شدید قیمت') && pricesHtml.includes('موجود نیست'));
+const panelHtml = read('out/services/panel/index.html');
+check('توضیح بازار پنل در /services/panel/ رندر می‌شود',
+  panelHtml.includes('نوسان شدید') && panelHtml.includes('به‌روز'));
+check('صفحه پنل FAQ «چرا قیمت ثابت نیست» دارد',
+  panelHtml.includes('چرا قیمت پنل تلویزیون را روی سایت ثابت نکرده‌اید'));
+check('صفحه پنل دیگر قیمت ثابت وعده نمی‌دهد', !/از ۶ میلیون تومان با پنل اورجینال/.test(panelHtml));
+
 console.log(failures ? `\n${failures} بررسی ناموفق` : '\nهمه بررسی‌ها موفق ✓');
 process.exit(failures ? 1 : 0);

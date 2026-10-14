@@ -11,13 +11,38 @@ export function PriceTable({ categoryIds }: { categoryIds?: string[] }) {
   return (
     <div className="flex flex-col gap-8">
       {cats.map((cat) => (
-        <div key={cat.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-100 bg-slate-50 px-6 py-4">
-            <h3 className="text-lg font-extrabold text-brand-950">{cat.title}</h3>
-            {cat.note && <p className="mt-1 text-xs text-slate-500">{cat.note}</p>}
-          </div>
-          {/* موبایل: کارت‌های عمودی — بدون اسکرول افقی، کل ردیف‌ها کامل دیده می‌شوند */}
-          <ul className="flex flex-col divide-y divide-slate-100 sm:hidden">
+        <div key={cat.id} className="flex flex-col gap-8">
+          {cat.notice && (
+            <div className="rounded-3xl border border-amber-300/70 bg-amber-50 p-6 sm:p-7">
+              <div className="flex items-start gap-4">
+                <span
+                  aria-hidden="true"
+                  className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-amber-200/80 text-2xl"
+                >
+                  ⚠️
+                </span>
+                <div className="flex flex-col gap-3">
+                  <h2 className="text-lg font-extrabold leading-8 text-amber-900">{cat.notice.title}</h2>
+                  <p className="text-[15px] leading-8 text-amber-900/90">{cat.notice.body}</p>
+                  <ul className="flex flex-col gap-2.5">
+                    {cat.notice.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2.5 text-[15px] leading-8 text-amber-900/90">
+                        <span aria-hidden="true" className="mt-3 size-1.5 shrink-0 rounded-full bg-amber-500" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-100 bg-slate-50 px-6 py-4">
+              <h3 className="text-lg font-extrabold text-brand-950">{cat.title}</h3>
+              {cat.note && <p className="mt-1 text-xs text-slate-500">{cat.note}</p>}
+            </div>
+            {/* موبایل: کارت‌های عمودی — بدون اسکرول افقی، کل ردیف‌ها کامل دیده می‌شوند */}
+            <ul className="flex flex-col divide-y divide-slate-100 sm:hidden">
             {cat.rows.map((row, i) => (
               <li key={i} className="flex flex-col gap-2 px-5 py-4">
                 <div className="flex items-start justify-between gap-3">
@@ -67,6 +92,7 @@ export function PriceTable({ categoryIds }: { categoryIds?: string[] }) {
                 ))}
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       ))}

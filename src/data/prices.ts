@@ -17,6 +17,16 @@ export type PriceCategory = {
   id: string;
   title: string;
   note?: string;
+  /**
+   * هشدار بازار برای دسته‌هایی که قیمت‌شان نوسان مستقل دارد.
+   * در حال حاضر فقط «تعویض پنل» این را دارد: قیمت پنل با نوسان شدید
+   * همراه است، بخشی از مدل‌ها موجود نیست و ارقام به‌روز نیستند.
+   */
+  notice?: {
+    title: string;
+    body: string;
+    points: string[];
+  };
   rows: PriceRow[];
 };
 
