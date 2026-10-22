@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/data/site';
-import { services } from '@/data/services';
+import { services, servicePriority } from '@/data/services';
 import { brands, featuredBrandSlugs } from '@/data/brands';
 import { areas } from '@/data/areas';
 import { posts } from '@/data/posts';
@@ -50,7 +50,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticEntries(),
-    ...services.map((s) => entry(`/services/${s.slug}/`, 0.9, CONTENT_LAST_MODIFIED)),
+    ...services.map((s) =>
+      entry(`/services/${s.slug}/`, servicePriority[s.slug] ?? 0.7, CONTENT_LAST_MODIFIED),
+    ),
     // برندهای تخصصی سایت (دوو و اسنوا) اولویت بالاتری در نقشه سایت دارند
     ...brands.map((b) =>
       entry(
