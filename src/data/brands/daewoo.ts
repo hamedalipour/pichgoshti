@@ -84,5 +84,6 @@ export const daewooBrand: Brand = {
     { label: 'هزینه تعمیر تلویزیون دوو؛ جدول کامل ۱۴۰۵', href: '/blog/daewoo-repair-cost/' },
     { label: 'چرا تلویزیون دوو روشن نمی‌شود؟ چراغ قرمز و ۸ علت', href: '/blog/daewoo-tv-wont-turn-on/' },
     { label: 'دوو بهتر است یا اسنوا؟ مقایسه و هزینه تعمیر', href: '/blog/daewoo-vs-snowa/' },
+    { label: 'هزینه نصب تلویزیون دوو روی دیوار ۱۴۰۵', href: '/blog/wall-mount-duo-snowa/' },
   ],
 };

@@ -84,5 +84,6 @@ export const snowaBrand: Brand = {
     { label: 'هزینه تعمیر تلویزیون اسنوا؛ جدول کامل ۱۴۰۵', href: '/blog/snowa-repair-cost/' },
     { label: 'تلویزیون اسنوا روی لوگو گیر کرده؟ راه‌حل قطعی', href: '/blog/snowa-stuck-on-logo/' },
     { label: 'رفع هنگ و کندی تلویزیون اسنوا', href: '/blog/snowa-android-slow/' },
+    { label: 'نصب تلویزیون اسنوا روی دیوار؛ قیمت کامل ۱۴۰۵', href: '/blog/wall-mount-duo-snowa/' },
   ],
 };
