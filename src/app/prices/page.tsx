@@ -24,6 +24,20 @@ export default function PricesPage() {
         <PriceTable />
       </section>
 
+      <section className="mx-auto max-w-4xl px-4 pb-8">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-extrabold text-brand-950">هزینه تعویض بک‌لایت تلویزیون در ۱۴۰۵</h2>
+          <p className="mt-3 text-sm leading-8 text-slate-600">
+            هزینه تعویض بک‌لایت به سایز پنل بستگی دارد: ۳۲ تا ۴۳ اینچ از ۱.۸ میلیون، ۵۰ تا ۵۵ اینچ از ۲.۵ میلیون و ۶۵ اینچ به بالا از ۳.۵ میلیون تومان. اگر مشکل از درایور باشد، تعمیر بک‌لایت از ۹۰۰ هزار تومان انجام می‌شود — تست دستگاه در محل مشخص می‌کند کدام مورد است.
+          </p>
+          <ul className="mt-4 flex flex-col gap-2 text-sm font-bold text-brand-700">
+            <li><Link href="/blog/backlight-cost-by-size/" className="underline decoration-accent-400 underline-offset-4">جدول کامل هزینه تعویض بک‌لایت به تفکیک سایز</Link></li>
+            <li><Link href="/blog/backlight-repair-vs-replace/" className="underline decoration-accent-400 underline-offset-4">تعمیر بک‌لایت یا تعویض کامل؟ مقایسه هزینه</Link></li>
+            <li><Link href="/services/backlight/" className="underline decoration-accent-400 underline-offset-4">خدمت تعمیر بک‌لایت تلویزیون در محل</Link></li>
+          </ul>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <SectionHeading eyebrow="سوالات هزینه" title="پرسش‌های رایج درباره هزینه‌ها" />
         <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-6">
