@@ -60,6 +60,7 @@ export const samsungBrand: Brand = {
     },
   ],
   relatedArticles: [
+    { label: 'هزینه تعویض بک‌لایت تلویزیون سامسونگ به تفکیک سایز', href: '/blog/samsung-backlight-replacement/' },
     { label: 'چراغ استندبای چشمک می‌زند؛ معنی هر حالت', href: '/blog/standby-light-blinking/' },
     { label: 'علائم خرابی برد پاور تلویزیون', href: '/blog/power-board-signs/' },
     { label: 'هزینه تعمیر مین‌برد تلویزیون', href: '/blog/mainboard-repair-cost/' },

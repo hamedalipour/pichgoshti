@@ -47,6 +47,7 @@ export const lgBrand: Brand = {
     },
   ],
   relatedArticles: [
+    { label: 'هزینه تعویض بک‌لایت تلویزیون ال‌جی به تفکیک سایز', href: '/blog/lg-backlight-replacement/' },
     { label: 'علائم خرابی برد پاور تلویزیون (شامل ال‌جی)', href: '/blog/power-board-signs/' },
     { label: 'هزینه بک‌لایت تلویزیون به تفکیک سایز', href: '/blog/backlight-cost-by-size/' },
     { label: 'صفحه سیاه شده ولی صدا دارد؛ علت و هزینه', href: '/blog/black-screen-with-sound/' },
