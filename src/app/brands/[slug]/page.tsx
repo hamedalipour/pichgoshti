@@ -88,7 +88,7 @@ export default async function BrandPage({ params }: Params) {
             <div className="rounded-3xl border border-accent-500/40 bg-accent-500/10 p-6">
               <h2 className="text-lg font-extrabold text-brand-950">هزینه تعمیر تلویزیون {brand.name}</h2>
               <p className="mt-3 leading-8 text-slate-700">
-                هزینه بسته به نوع خرابی متفاوت است؛ از تعمیر برد پاور (از ۸۰۰ هزار تومان) تا تعویض بک‌لایت
+                هزینه بسته به نوع خرابی متفاوت است؛ از تعمیر برد پاور (از ۹۵۰ هزار تومان) تا تعویض بک‌لایت
                 و پنل. قیمت قطعی پس از عیب‌یابی و قبل از شروع کار، با تأیید شما نهایی می‌شود و عیب‌یابی در
                 صورت تعمیر رایگان محاسبه می‌شود.
               </p>
