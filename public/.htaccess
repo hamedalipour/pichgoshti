@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# 404 صفحه اختصاصی (خروجی استاتیک Next.js)
+ErrorDocument 404 /404.html
+
+# ریدایرکت www به ریشه
+Options +FollowSymLinks
+RewriteCond %{HTTP_HOST} !^pich-goshti\.ir$ [NC]
+RewriteRule ^(.*)$ https://pich-goshti.ir/$1 [R=301,L]
+
+# کش طولانی برای فایل‌های immutable سمت کاربر
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2?|png|jpg|jpeg|webp|avif|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# فشرده‌سازی
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>

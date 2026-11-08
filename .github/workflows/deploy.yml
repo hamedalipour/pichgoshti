@@ -1,0 +1,83 @@
+name: Deploy (GitHub Pages + Iranian host)
+
+# انتشار خروجی استاتیک Next.js (پوشه out/) به:
+# 1) GitHub Pages — پشتیبان
+# 2) هاست اشتراکی ایران — اصلی، با FTP از رانر گیت‌هاب (شبکه بدون فیلترینگ)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build static site
+        run: npm run build
+      - name: Ensure CNAME
+        run: echo "pich-goshti.ir" > out/CNAME
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-host:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: out-extracted
+      - name: Extract out/
+        shell: bash
+        run: |
+          mkdir -p out
+          tar -xf out-extracted/artifact.tar -C out
+      - name: Install lftp
+        run: sudo apt-get update -y && sudo apt-get install -y lftp
+      - name: Upload to Iranian host
+        shell: bash
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          lftp -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<'EOF'
+          set ftp:passive-mode yes
+          set ftp:ssl-allow no
+          set net:max-retries 3
+          set net:timeout 30
+          mirror -R --delete --no-perms out /public_html/
+          bye
+          EOF
