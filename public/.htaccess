@@ -3,12 +3,12 @@ RewriteEngine On
 # 404 صفحه اختصاصی (خروجی استاتیک Next.js)
 ErrorDocument 404 /404.html
 
-# ریدایرکت www به ریشه
-Options +FollowSymLinks
+# اجبار HTTPS و ریدایرکت www به ریشه (دو شرط با OR در یک قانون)
+RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} !^pich-goshti\.ir$ [NC]
 RewriteRule ^(.*)$ https://pich-goshti.ir/$1 [R=301,L]
 
-# کش طولانی برای فایل‌های immutable سمت کاربر
+# کش طولانی برای فایل‌های سمت کاربر
 <IfModule mod_headers.c>
   <FilesMatch "\.(css|js|woff2?|png|jpg|jpeg|webp|avif|gif|svg|ico)$">
     Header set Cache-Control "public, max-age=604800"
