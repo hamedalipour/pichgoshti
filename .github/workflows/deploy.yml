@@ -50,6 +50,30 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Checkout (fetch-depth 2 for last-commit diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Download artifact for IndexNow
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact
+
+      - name: Unpack site artifact for IndexNow
+        # out/sitemap.xml برای ارسال کل URLها به IndexNow وقتی ساختار سایت تغییر کرده
+        continue-on-error: true
+        run: |
+          mkdir -p out
+          tar -xf "${{ runner.temp }}/pages-artifact/github-pages.tar" -C out
+
+      - name: Ping IndexNow (Bing instant indexing)
+        # اعلام URLهای تغییرکرده به Bing — خطای غیرمرگبار
+        continue-on-error: true
+        run: node scripts/indexnow.mjs
+
   deploy-host:
     needs: build
     runs-on: ubuntu-latest
