@@ -7,20 +7,22 @@ export function MobileCallBar() {
   return (
     <div
       className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-2.5 shadow-[0_-4px_20px_rgba(15,31,61,0.08)] backdrop-blur lg:hidden"
+      style={{ paddingBottom: 'calc(0.625rem + env(safe-area-inset-bottom))' }}
       role="complementary"
       aria-label="تماس سریع"
     >
       <div className="mx-auto flex max-w-6xl gap-2.5">
         <a
           href={telHref(siteConfig.phone)}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-3 text-sm font-extrabold text-white"
+          className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-brand-700 px-4 py-3 text-sm font-extrabold text-white"
         >
           <span aria-hidden="true" className="relative flex size-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
             <span className="relative inline-flex size-2.5 rounded-full bg-emerald-300" />
           </span>
           تماس فوری
-          <span dir="ltr" className="text-xs font-bold opacity-90">
+          {/* در گوشی‌های باریک شماره مخفی می‌شود تا دکمه دوخطی نشود */}
+          <span dir="ltr" className="hidden min-[420px]:inline text-xs font-bold opacity-90">
             {siteConfig.phoneDisplay}
           </span>
         </a>

@@ -18,17 +18,18 @@ export function CampaignBanner() {
       {/* جلوه براق ملایم */}
       <div aria-hidden="true" className="pointer-events-none absolute -top-10 start-1/4 h-24 w-64 rotate-12 rounded-full bg-white/20 blur-2xl" />
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-2.5 text-center sm:flex-row sm:gap-3 sm:text-start">
+      <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-3 text-center sm:flex-row sm:gap-3 sm:text-start">
         <p className="flex flex-wrap items-center justify-center gap-2 text-sm font-extrabold leading-6 sm:justify-start">
           <span className="rounded-full bg-brand-950/15 px-2.5 py-0.5 text-xs font-extrabold">{c.badge}</span>
           {c.title}
-          <span className="text-xs font-bold text-brand-900/75">{c.subtitle}</span>
+          {/* زیرنویس فقط در دسکتاپ — بنر موبایل جمع‌وجور بماند */}
+          <span className="hidden text-xs font-bold text-brand-900/75 sm:inline">{c.subtitle}</span>
         </p>
 
         <div className="flex shrink-0 items-center gap-2.5">
           <a
             href={telHref(siteConfig.phone)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-brand-950 px-4 py-1.5 text-sm font-extrabold text-white shadow-sm transition hover:bg-brand-900"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-brand-950 px-4 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:bg-brand-900 active:scale-[0.98]"
           >
             <span aria-hidden="true">☎️</span>
             استفاده از تخفیف
@@ -36,7 +37,7 @@ export function CampaignBanner() {
           {c.href ? (
             <Link
               href={c.href}
-              className="text-xs font-extrabold text-brand-900 underline decoration-brand-900/40 underline-offset-4 transition hover:decoration-brand-900"
+              className="inline-flex items-center rounded-xl px-2 py-2.5 text-xs font-extrabold text-brand-900 underline decoration-brand-900/40 underline-offset-4 transition hover:decoration-brand-900"
             >
               جزئیات و هزینه‌ها
             </Link>

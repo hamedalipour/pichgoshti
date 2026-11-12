@@ -119,7 +119,7 @@ export function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="برند تلویزیون">
-          <select name="brand" className={selectCls} defaultValue="">
+          <SelectField name="brand" defaultValue="">
             <option value="" disabled>
               انتخاب برند…
             </option>
@@ -129,17 +129,17 @@ export function ContactForm() {
               </option>
             ))}
             <option value="سایر">برند دیگر</option>
-          </select>
+          </SelectField>
         </Field>
         <Field label="نوع مشکل یا خدمت">
-          <select name="service" className={selectCls}>
+          <SelectField name="service">
             <option value="نمی‌دانم، عیب‌یابی می‌خواهم">نمی‌دانم، عیب‌یابی می‌خواهم</option>
             {serviceOptions.map((s) => (
               <option key={s.slug} value={s.label}>
                 {s.label}
               </option>
             ))}
-          </select>
+          </SelectField>
         </Field>
       </div>
 
@@ -148,7 +148,7 @@ export function ContactForm() {
           name="note"
           rows={4}
           placeholder="علت خرابی چه زمانی شروع شد؟ چه علامتی می‌بینید؟ مدل تلویزیون چیست؟"
-          className={`${selectCls} resize-y`}
+          className={`${inputCls} resize-y`}
         />
       </Field>
 
@@ -182,9 +182,32 @@ export function ContactForm() {
 }
 
 const inputCls =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-[15px] text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100';
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100';
 
 const selectCls = `${inputCls} appearance-none`;
+
+/** فلش کنار select — ظاهر native حذف شده پس دستی اضافه می‌شود (سمت چپ در RTL) */
+function SelectField({ children, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <span className="relative block">
+      <select {...props} className={selectCls}>
+        {children}
+      </select>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-500"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </span>
+  );
+}
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

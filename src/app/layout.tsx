@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Header />
         <CampaignBanner />
-        <main id="main" className="flex-1 pb-16 lg:pb-0">
+        <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />

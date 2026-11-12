@@ -22,10 +22,10 @@ export function CTASection({
             {title}
           </h2>
           <p className="max-w-xl leading-8 text-slate-300">{description}</p>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <a
               href={telHref(siteConfig.phone)}
-              className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-accent-500 px-7 py-4 text-base font-extrabold text-brand-950 shadow-lg shadow-accent-500/20 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:bg-accent-400"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-2xl bg-accent-500 px-7 py-4 text-base font-extrabold text-brand-950 shadow-lg shadow-accent-500/20 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:bg-accent-400 active:scale-[0.98] sm:w-auto"
             >
               <span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-brand-950/10">
                 <FeatureIcon name="phone" className="size-4" />
@@ -37,7 +37,7 @@ export function CTASection({
               href={baleUrl()}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-white/10 px-7 py-4 text-base font-extrabold text-white ring-1 ring-white/25 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:bg-white/15"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-2xl bg-white/10 px-7 py-4 text-base font-extrabold text-white ring-1 ring-white/25 transition duration-300 ease-out-quart hover:-translate-y-0.5 hover:bg-white/15 active:scale-[0.98] sm:w-auto"
             >
               <span aria-hidden="true" className="text-accent-400">
                 <FeatureIcon name="chat" className="size-5" />
@@ -54,7 +54,7 @@ export function CTASection({
             <li aria-hidden="true" className="hidden h-4 w-px bg-white/20 sm:block" />
             <li>عیب‌یابی شفاف قبل از تعمیر</li>
           </ul>
-          <Link href="/contact/" className="text-sm font-bold text-accent-400 transition hover:text-accent-300">
+          <Link href="/contact/" className="inline-flex items-center px-2 py-2 text-sm font-bold text-accent-400 transition hover:text-accent-300">
             یا فرم درخواست تعمیر را پر کنید ←
           </Link>
         </div>

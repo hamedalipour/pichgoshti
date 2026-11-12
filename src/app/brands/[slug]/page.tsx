@@ -114,7 +114,7 @@ export default async function BrandPage({ params }: Params) {
                 <ul className="mt-6 flex flex-col gap-1 rounded-3xl bg-slate-50 p-6">
                   {brand.relatedArticles.map((a) => (
                     <li key={a.href}>
-                      <Link href={a.href} className="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-bold text-slate-700 transition hover:bg-white hover:text-brand-700">
+                      <Link href={a.href} className="flex items-center justify-between gap-3 rounded-xl px-3 py-3 font-bold text-slate-700 transition hover:bg-white hover:text-brand-700">
                         {a.label}
                         <span aria-hidden="true">←</span>
                       </Link>
@@ -139,7 +139,7 @@ export default async function BrandPage({ params }: Params) {
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 {related.map((r) => (
                   <li key={r.slug}>
-                    <Link href={`/services/${r.slug}/`} className="flex items-center justify-between rounded-xl px-3 py-2.5 font-bold text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
+                    <Link href={`/services/${r.slug}/`} className="flex items-center justify-between rounded-xl px-3 py-3 font-bold text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
                       {r.navLabel}
                       <span aria-hidden="true">←</span>
                     </Link>

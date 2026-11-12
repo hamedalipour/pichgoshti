@@ -23,6 +23,16 @@ export function Header() {
     setOpen(false);
   }, [pathname]);
 
+  // بستن منو با کلید Escape (دسترس‌پذیری)
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
   // قفل اسکرول هنگام باز بودن منو
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -80,18 +90,18 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'بستن منو' : 'باز کردن منو'}
-            className="inline-flex size-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:bg-slate-50 lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:bg-slate-50 active:scale-[0.98] lg:hidden"
           >
             {open ? <CloseIcon className="size-5" /> : <MenuIcon className="size-5" />}
           </button>
         </div>
       </div>
 
-      {/* منوی موبایل */}
+      {/* منوی موبایل — وقتی باز است قابل اسکرول است تا در صفحه‌های کوتاه بریده نشود */}
       <div
         id="mobile-menu"
-        className={`overflow-hidden border-t border-slate-100 bg-white transition-[max-height] duration-300 lg:hidden ${
-          open ? 'max-h-[70vh]' : 'max-h-0 border-t-0'
+        className={`border-t border-slate-100 bg-white transition-[max-height] duration-300 lg:hidden ${
+          open ? 'max-h-[80dvh] overflow-y-auto overscroll-contain' : 'max-h-0 overflow-hidden border-t-0'
         }`}
       >
         <nav aria-label="منوی موبایل" className="mx-auto flex max-w-6xl flex-col px-4 py-3">

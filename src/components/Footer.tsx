@@ -26,10 +26,10 @@ export function Footer() {
 
         <nav aria-label="خدمات تعمیرات">
           <h2 className="mb-4 text-sm font-extrabold text-white">خدمات تعمیرات</h2>
-          <ul className="grid grid-cols-1 gap-2.5 text-sm">
+          <ul className="grid grid-cols-1 gap-1 text-sm">
             {serviceOptions.map((s) => (
               <li key={s.slug}>
-                <Link href={`/services/${s.slug}/`} className="text-slate-400 transition hover:text-accent-400">
+                <Link href={`/services/${s.slug}/`} className="inline-flex items-center py-1.5 text-slate-400 transition hover:text-accent-400">
                   {s.label}
                 </Link>
               </li>
@@ -39,30 +39,30 @@ export function Footer() {
 
         <nav aria-label="برندها و مناطق">
           <h2 className="mb-4 text-sm font-extrabold text-white">برندها و مناطق</h2>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
             {brands.slice(0, 6).map((b) => (
               <li key={b.slug}>
-                <Link href={`/brands/${b.slug}/`} className="text-slate-400 transition hover:text-accent-400">
+                <Link href={`/brands/${b.slug}/`} className="inline-flex items-center py-1.5 text-slate-400 transition hover:text-accent-400">
                   تعمیر {b.name}
                 </Link>
               </li>
             ))}
             <li className="col-span-2">
-              <Link href="/brands/" className="font-bold text-accent-400 transition hover:text-accent-300">
+              <Link href="/brands/" className="inline-flex items-center py-1.5 font-bold text-accent-400 transition hover:text-accent-300">
                 همه برندها ←
               </Link>
             </li>
           </ul>
-          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+          <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
             {areas.slice(0, 6).map((a) => (
               <li key={a.slug}>
-                <Link href={`/areas/${a.slug}/`} className="text-slate-400 transition hover:text-accent-400">
+                <Link href={`/areas/${a.slug}/`} className="inline-flex items-center py-1.5 text-slate-400 transition hover:text-accent-400">
                   {a.name}
                 </Link>
               </li>
             ))}
             <li className="col-span-2">
-              <Link href="/areas/" className="font-bold text-accent-400 transition hover:text-accent-300">
+              <Link href="/areas/" className="inline-flex items-center py-1.5 font-bold text-accent-400 transition hover:text-accent-300">
                 همه مناطق تهران ←
               </Link>
             </li>
@@ -103,13 +103,14 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-slate-500 sm:flex-row">
+        {/* فاصله پایین در موبایل = نوار تماس ثابت روی فوتر نیفتد */}
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 pb-[calc(5rem+env(safe-area-inset-bottom))] pt-5 text-center text-xs text-slate-500 sm:flex-row lg:pb-5">
           <p>© {year} تمامی حقوق برای {siteConfig.legalName} محفوظ است.</p>
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-            <li><Link href="/about/" className="transition hover:text-slate-300">درباره ما</Link></li>
-            <li><Link href="/faq/" className="transition hover:text-slate-300">سوالات متداول</Link></li>
-            <li><Link href="/terms/" className="transition hover:text-slate-300">شرایط استفاده</Link></li>
-            <li><Link href="/contact/" className="transition hover:text-slate-300">تماس</Link></li>
+            <li><Link href="/about/" className="inline-flex px-1 py-1.5 transition hover:text-slate-300">درباره ما</Link></li>
+            <li><Link href="/faq/" className="inline-flex px-1 py-1.5 transition hover:text-slate-300">سوالات متداول</Link></li>
+            <li><Link href="/terms/" className="inline-flex px-1 py-1.5 transition hover:text-slate-300">شرایط استفاده</Link></li>
+            <li><Link href="/contact/" className="inline-flex px-1 py-1.5 transition hover:text-slate-300">تماس</Link></li>
           </ul>
         </div>
       </div>

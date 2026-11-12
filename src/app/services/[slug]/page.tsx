@@ -155,7 +155,7 @@ export default async function ServicePage({ params }: Params) {
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 {related.map((r) => (
                   <li key={r.slug}>
-                    <Link href={`/services/${r.slug}/`} className="flex items-center justify-between rounded-xl px-3 py-2.5 font-bold text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
+                    <Link href={`/services/${r.slug}/`} className="flex items-center justify-between rounded-xl px-3 py-3 font-bold text-slate-600 transition hover:bg-slate-50 hover:text-brand-700">
                       {r.navLabel}
                       <span aria-hidden="true">←</span>
                     </Link>
