@@ -1,16 +1,43 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 import type { PostBlock } from '@/data/posts';
+import { siteConfig, telHref } from '@/data/site';
 import { buildImageSrcSet, getImageMeta, IMAGE_SIZES } from '@/lib/images';
+
+/**
+ * کارت تماس درون مقاله — بعد از جدول قیمت (یا میانه مقاله) رندر می‌شود.
+ * بیشترین جست‌وجوهای ورودی «قیمت/هزینه» است؛ خواننده بعد از دیدن قیمت‌ها
+ * داغ‌ترین لحظه تماس را دارد و نباید تا انتهای مقاله بدون CTA بماند.
+ */
+function MidArticleCall() {
+  return (
+    <aside className="my-1 flex flex-col items-start gap-3 rounded-2xl border-2 border-accent-500/50 bg-accent-500/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-[15px] font-extrabold leading-8 text-brand-950">
+        قیمت دقیق برای مدل تلویزیون خودتان متفاوت است؛
+        <span className="text-accent-700"> مشاوره تلفنی رایگان</span> و پاسخ در چند دقیقه.
+      </p>
+      <a
+        href={telHref(siteConfig.phone)}
+        className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent-500 px-5 py-3 text-sm font-extrabold text-brand-950 shadow-sm transition hover:bg-accent-400"
+      >
+        <span aria-hidden="true">☎️</span>
+        تماس فوری
+        <span dir="ltr">{siteConfig.phoneDisplay}</span>
+      </a>
+    </aside>
+  );
+}
 
 /**
  * رندر بلوک‌های محتوای مقاله با استایل یکنواخت
  */
 export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
   const firstImageIndex = blocks.findIndex((b) => b.type === 'image');
-  return (
-    <div className="article flex flex-col gap-6">
-      {blocks.map((b, i) => {
-        switch (b.type) {
+  // محل کارت تماس میانی: بعد از اولین جدول (قیمت‌ها) وگرنه میانه مقاله — فقط در مقالات بلند
+  const tableIndex = blocks.findIndex((b) => b.type === 'table');
+  const midIndex = blocks.length >= 6 ? (tableIndex >= 0 ? tableIndex : Math.floor(blocks.length / 2)) : -1;
+  const renderBlock = (b: PostBlock, i: number) => {
+    switch (b.type) {
           case 'h2':
             return (
               <h2 key={i} className="mt-4 text-xl font-extrabold leading-9 text-brand-950 sm:text-2xl">
@@ -113,7 +140,16 @@ export function PostBlocks({ blocks }: { blocks: PostBlock[] }) {
           default:
             return null;
         }
-      })}
+  };
+
+  return (
+    <div className="article flex flex-col gap-6">
+      {blocks.map((b, i) => (
+        <Fragment key={i}>
+          {renderBlock(b, i)}
+          {i === midIndex && <MidArticleCall />}
+        </Fragment>
+      ))}
     </div>
   );
 }

@@ -10,30 +10,17 @@ import fs from 'node:fs';
 
 const FILE = 'content/posts.json';
 const DRY = process.argv.includes('--dry');
-const TODAY = '2026-10-14';
-const TODAY_FA = '۲۲ مهر ۱۴۰۵';
+const TODAY = '2026-11-13';
+const TODAY_FA = '۲۲ آبان ۱۴۰۵';
 
-// مقالاتی که در این موج محتوایی/متا به‌روز شدند
+// مقالاتی که در این موج محتوایی/متا به‌روز شدند (بازنویسی تیتر/متا برای CTR)
 const TARGETS = [
-  'black-screen-with-sound',
   'daewoo-backlight-replacement',
+  'lg-backlight-replacement',
   'snowa-backlight-replacement',
-  'backlight-cost-by-size',
-  'backlight-repair-vs-replace',
-  'standby-light-blinking',
-  'snowa-android-slow',
+  'samsung-backlight-replacement',
   'power-board-signs',
-  'android-flash-cost',
-  'tv-repair-cost',
-  'backlight-signs',
-  'snowa-tv-repair',
-  'panel-vs-new-tv',
-  'mainboard-repair-cost',
-  // صفحات پربازدید GSC — سیگنال تازگی برای حفظ/بازیابی پوزیشن
-  'daewoo-repair-cost',
-  'snowa-repair-cost',
-  'daewoo-tv-wont-turn-on',
-  'tv-wont-turn-on',
+  'black-screen-with-sound',
 ];
 
 const posts = JSON.parse(fs.readFileSync(FILE, 'utf8'));
