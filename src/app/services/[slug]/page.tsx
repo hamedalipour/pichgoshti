@@ -10,6 +10,7 @@ import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
 import { JsonLd } from '@/components/JsonLd';
 import { SidebarCallCard } from '@/components/SidebarCallCard';
+import { TrustStrip } from '@/components/TrustStrip';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -76,6 +77,9 @@ export default async function ServicePage({ params }: Params) {
           <p className="max-w-3xl leading-8 text-slate-600 sm:text-lg">{service.excerpt}</p>
         </div>
       </section>
+
+      {/* نوار اعتماد — رفع تردید قبل از سفارش */}
+      <TrustStrip />
 
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-10 lg:grid-cols-[1fr_320px]">

@@ -10,17 +10,14 @@ import fs from 'node:fs';
 
 const FILE = 'content/posts.json';
 const DRY = process.argv.includes('--dry');
-const TODAY = '2026-11-13';
-const TODAY_FA = '۲۲ آبان ۱۴۰۵';
+const TODAY = '2026-11-14';
+const TODAY_FA = '۲۳ آبان ۱۴۰۵';
 
-// مقالاتی که در این موج محتوایی/متا به‌روز شدند (بازنویسی تیتر/متا برای CTR)
+// مقالاتی که در این موج محتوایی/متا به‌روز شدند (خوشه‌های ۴ خدمت پول‌ساز)
 const TARGETS = [
-  'daewoo-backlight-replacement',
-  'lg-backlight-replacement',
-  'snowa-backlight-replacement',
-  'samsung-backlight-replacement',
-  'power-board-signs',
-  'black-screen-with-sound',
+  'mainboard-repair-cost',
+  'wall-mount-guide',
+  'wall-mount-duo-snowa',
 ];
 
 const posts = JSON.parse(fs.readFileSync(FILE, 'utf8'));

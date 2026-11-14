@@ -11,6 +11,7 @@ import { PostBlocks } from '@/components/PostBlocks';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { CTASection } from '@/components/CTASection';
 import { JsonLd } from '@/components/JsonLd';
+import { TrustStrip } from '@/components/TrustStrip';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -189,6 +190,11 @@ export default async function BlogPostPage({ params }: Params) {
           </section>
         </div>
       </article>
+
+      {/* نوار اعتماد — قبل از CTA پایانی، لحظه‌ای که خواننده در حال تصمیم است */}
+      <div className="border-t border-slate-100">
+        <TrustStrip />
+      </div>
 
       <div className="pb-16">
         <CTASection title="این راهنما مشکل شما را حل نکرد؟ تکنسین را بخواهید" />
