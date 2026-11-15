@@ -10,14 +10,29 @@ import fs from 'node:fs';
 
 const FILE = 'content/posts.json';
 const DRY = process.argv.includes('--dry');
-const TODAY = '2026-11-14';
-const TODAY_FA = '۲۳ آبان ۱۴۰۵';
+const TODAY = '2026-11-15';
+const TODAY_FA = '۲۴ آبان ۱۴۰۵';
 
-// مقالاتی که در این موج محتوایی/متا به‌روز شدند (خوشه‌های ۴ خدمت پول‌ساز)
+// مقالاتی که در این موج لینک‌سازی داخلی/سئوی محلی به‌روز شدند
 const TARGETS = [
   'mainboard-repair-cost',
-  'wall-mount-guide',
-  'wall-mount-duo-snowa',
+  'standby-light-blinking',
+  'daewoo-repair-cost',
+  'snowa-repair-cost',
+  'android-flash-cost',
+  'daewoo-tv-wont-turn-on',
+  'snowa-stuck-on-logo',
+  'daewoo-vs-snowa',
+  'snowa-android-slow',
+  'daewoo-tv-repair',
+  'snowa-tv-repair',
+  'tv-repair-cost',
+  'tv-wont-turn-on',
+  'power-board-signs',
+  'black-screen-with-sound',
+  'extend-tv-lifespan',
+  'broken-panel-duo-snowa',
+  'backlight-cost-by-size',
 ];
 
 const posts = JSON.parse(fs.readFileSync(FILE, 'utf8'));

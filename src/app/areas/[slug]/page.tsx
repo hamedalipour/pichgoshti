@@ -47,7 +47,22 @@ export default async function AreaPage({ params }: Params) {
   if (!area) notFound();
 
   const nearby = getNearbyAreas(area);
-  const featured = services.slice(0, 3);
+
+  /**
+   * چهار خدمت پول‌ساز — نمایش و لینک داخلی محلی.
+   * لینک با انکر «خدمت + نام محله» به سئوی محلی تهران کمک می‌کند.
+   */
+  const moneySlugs = ['backlight', 'wall-mount', 'mainboard', 'android-tv'];
+  const moneyServices = moneySlugs
+    .map((slug) => services.find((s) => s.slug === slug))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const featured = moneyServices.slice(0, 3);
+  const localAnchor: Record<string, string> = {
+    backlight: 'تعویض بک‌لایت تلویزیون',
+    'wall-mount': 'نصب دیوارک تلویزیون',
+    mainboard: 'تعمیر برد تلویزیون',
+    'android-tv': 'فلش و نصب نرم‌افزار تلویزیون',
+  };
 
   return (
     <>
@@ -94,6 +109,19 @@ export default async function AreaPage({ params }: Params) {
                   <ServiceCard key={s.slug} service={s} />
                 ))}
               </div>
+              {/* لینک‌های محلی با انکر «خدمت + نام محله» برای سئوی تهران */}
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {moneyServices.map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/services/${s.slug}/`}
+                      className="inline-flex rounded-full bg-brand-50 px-4 py-2 text-sm font-bold text-brand-700 transition hover:bg-brand-100"
+                    >
+                      {localAnchor[s.slug]} در {area.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <div className="mt-4 text-sm">
                 <Link href="/services/" className="font-bold text-brand-600">همه خدمات تعمیرات ←</Link>
               </div>
