@@ -80,6 +80,7 @@ export const daewooBrand: Brand = {
     },
   ],
   relatedArticles: [
+    { label: 'تعمیر و تعویض بک‌لایت تلویزیون در محل (همه برندها)', href: '/services/backlight/' },
     { label: 'هزینه تعویض بک‌لایت تلویزیون دوو به تفکیک سایز', href: '/blog/daewoo-backlight-replacement/' },
     { label: 'هزینه تعمیر تلویزیون دوو؛ جدول کامل ۱۴۰۵', href: '/blog/daewoo-repair-cost/' },
     { label: 'چرا تلویزیون دوو روشن نمی‌شود؟ چراغ قرمز و ۸ علت', href: '/blog/daewoo-tv-wont-turn-on/' },
