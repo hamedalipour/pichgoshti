@@ -80,6 +80,7 @@ export const snowaBrand: Brand = {
     },
   ],
   relatedArticles: [
+    { label: 'تعمیر و تعویض بک‌لایت تلویزیون در محل (همه برندها)', href: '/services/backlight/' },
     { label: 'هزینه تعمیر بک‌لایت تلویزیون اسنوا (۵۵ اینچ و سایر سایزها)', href: '/blog/snowa-backlight-replacement/' },
     { label: 'هزینه تعمیر تلویزیون اسنوا؛ جدول کامل ۱۴۰۵', href: '/blog/snowa-repair-cost/' },
     { label: 'تلویزیون اسنوا روی لوگو گیر کرده؟ راه‌حل قطعی', href: '/blog/snowa-stuck-on-logo/' },
